@@ -1,6 +1,6 @@
 {
   "name": "capacitor-plugin-jpush",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a capacitor plugin width capacitor",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
