@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90421d1e-ac53-45df-8fdf-a404d7c7765f" name="Default Changelist" comment="" />
+    <list default="true" id="90421d1e-ac53-45df-8fdf-a404d7c7765f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jXBU1rO32cmS5ayEgcSNjvST5O" />
   <component name="ProjectViewState">
@@ -31,6 +37,7 @@
       <updated>1603940567654</updated>
       <workItem from="1603940568715" duration="3200000" />
       <workItem from="1604366447709" duration="5225000" />
+      <workItem from="1604379073152" duration="492000" />
     </task>
     <servers />
   </component>
