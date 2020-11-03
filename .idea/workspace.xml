@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90421d1e-ac53-45df-8fdf-a404d7c7765f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +36,7 @@
       <updated>1603940567654</updated>
       <workItem from="1603940568715" duration="3200000" />
       <workItem from="1604366447709" duration="5225000" />
-      <workItem from="1604379073152" duration="492000" />
+      <workItem from="1604379073152" duration="605000" />
     </task>
     <servers />
   </component>
