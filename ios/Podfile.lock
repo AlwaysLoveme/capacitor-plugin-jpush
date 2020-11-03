@@ -1,0 +1,33 @@
+PODS:
+  - Capacitor (2.4.2):
+    - CapacitorCordova
+  - CapacitorCordova (2.4.2)
+  - JCore (2.4.0)
+  - JPush (3.3.6):
+    - JCore (< 3.0.0, >= 2.0.0)
+
+DEPENDENCIES:
+  - "Capacitor (from `../node_modules/@capacitor/ios`)"
+  - "CapacitorCordova (from `../node_modules/@capacitor/ios`)"
+  - JPush (= 3.3.6)
+
+SPEC REPOS:
+  trunk:
+    - JCore
+    - JPush
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../node_modules/@capacitor/ios"
+  CapacitorCordova:
+    :path: "../node_modules/@capacitor/ios"
+
+SPEC CHECKSUMS:
+  Capacitor: 99a3d85b31f782d6b58bd9e3f2de4ed719c94d51
+  CapacitorCordova: 64114f68ed75e409d37a8e1129c0038b3a0cec0d
+  JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
+  JPush: a401b946dcc76b37335422487201bc1ecc8dd296
+
+PODFILE CHECKSUM: e33b070e54840994eb1600a535a595521afd7903
+
+COCOAPODS: 1.9.3
