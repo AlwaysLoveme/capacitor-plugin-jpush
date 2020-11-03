@@ -6,4 +6,5 @@
 CAP_PLUGIN(Jpush, "Jpush",
            CAP_PLUGIN_METHOD(echo, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(initJpush, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setAlias, CAPPluginReturnPromise);
 )

@@ -141,4 +141,9 @@ public class Jpush: CAPPlugin {
     @objc func initJpush(_ call: CAPPluginCall) {
         JPUSHService.initJpush()
     }
+    
+    @objc func setAlias(_ call: CAPPluginCall) {
+        let alias = call.getString('alias')
+        JPUSHService.setAlias(alias)
+    }
 }

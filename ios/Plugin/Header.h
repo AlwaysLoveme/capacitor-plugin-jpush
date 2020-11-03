@@ -7,8 +7,6 @@
 //
 
 #import "JPUSHService.h"
-#ifndef Header_h
-#define Header_h
-
-
-#endif /* Header_h */
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif

@@ -17,6 +17,7 @@
 		E1FDD8B425512B970054D2FB /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FDD8B325512B970054D2FB /* Plugin.m */; };
 		E1FDD8B925512BEA0054D2FB /* JPUSHService.h in Headers */ = {isa = PBXBuildFile; fileRef = E1FDD8B825512BEA0054D2FB /* JPUSHService.h */; };
 		E1FDD8BD25512C5E0054D2FB /* libjpush-ios-3.3.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FDD8BC25512C5E0054D2FB /* libjpush-ios-3.3.6.a */; };
+		E1FDD8CB25512F710054D2FB /* AppDelegate+Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDD8CA25512F710054D2FB /* AppDelegate+Plugin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		E1FDD8B725512BCE0054D2FB /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		E1FDD8B825512BEA0054D2FB /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		E1FDD8BC25512C5E0054D2FB /* libjpush-ios-3.3.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libjpush-ios-3.3.6.a"; sourceTree = "<group>"; };
+		E1FDD8CA25512F710054D2FB /* AppDelegate+Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Plugin.swift"; sourceTree = "<group>"; };
 		F65BB2953ECE002E1EF3E424 /* Pods-PluginTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PluginTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PluginTests/Pods-PluginTests.release.xcconfig"; sourceTree = "<group>"; };
 		F6753A823D3815DB436415E3 /* Pods_PluginTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PluginTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -96,11 +98,13 @@
 		50ADFF8A201F53D600D50D53 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				E1FDD8D3255131650054D2FB /* Framework */,
 				E1FDD8B325512B970054D2FB /* Plugin.m */,
 				50E1A94720377CB70090CE1A /* Plugin.swift */,
 				50ADFF8C201F53D600D50D53 /* Info.plist */,
 				E1FDD8AF25512B8C0054D2FB /* Plugin.h */,
 				E1FDD8B725512BCE0054D2FB /* Header.h */,
+				E1FDD8CA25512F710054D2FB /* AppDelegate+Plugin.swift */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -128,13 +132,20 @@
 		A797B9EFA3DCEFEA1FBB66A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1FDD8BC25512C5E0054D2FB /* libjpush-ios-3.3.6.a */,
-				E1FDD8B825512BEA0054D2FB /* JPUSHService.h */,
 				50ADFFA52020D75100D50D53 /* Capacitor.framework */,
 				3B2A61DA5A1F2DD4F959604D /* Pods_Plugin.framework */,
 				F6753A823D3815DB436415E3 /* Pods_PluginTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E1FDD8D3255131650054D2FB /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				E1FDD8BC25512C5E0054D2FB /* libjpush-ios-3.3.6.a */,
+				E1FDD8B825512BEA0054D2FB /* JPUSHService.h */,
+			);
+			path = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1FDD8B425512B970054D2FB /* Plugin.m in Sources */,
+				E1FDD8CB25512F710054D2FB /* AppDelegate+Plugin.swift in Sources */,
 				50E1A94820377CB70090CE1A /* Plugin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
