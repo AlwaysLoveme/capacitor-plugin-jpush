@@ -14,8 +14,8 @@ export class JpushWeb extends WebPlugin implements JpushPlugin {
     return options;
   }
 
-  async startPushSDK(): Promise<Boolean> {
-    return Promise.resolve(true);
+  async initJpush(): Promise<any> {
+    return true;
   }
 }
 

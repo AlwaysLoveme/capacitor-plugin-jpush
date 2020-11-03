@@ -6,5 +6,5 @@ declare module '@capacitor/core' {
 
 export interface JpushPlugin {
   echo(options: { value: string }): Promise<{ value: string }>;
-  startPushSDK(): Promise<any>;
+  initJpush(): Promise<Boolean>;
 }

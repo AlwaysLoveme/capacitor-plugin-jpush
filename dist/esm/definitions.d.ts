@@ -9,5 +9,4 @@ export interface JpushPlugin {
     }): Promise<{
         value: string;
     }>;
-    startPushSDK(): Promise<any>;
 }

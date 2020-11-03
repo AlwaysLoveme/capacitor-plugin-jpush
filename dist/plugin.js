@@ -23,11 +23,6 @@ var capacitorPlugin = (function (exports, core) {
                 return options;
             });
         }
-        startPushSDK() {
-            return __awaiter(this, void 0, void 0, function* () {
-                return Promise.resolve(true);
-            });
-        }
     }
     const Jpush = new JpushWeb();
     core.registerWebPlugin(Jpush);

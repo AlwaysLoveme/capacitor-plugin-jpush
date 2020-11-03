@@ -7,7 +7,6 @@ export declare class JpushWeb extends WebPlugin implements JpushPlugin {
     }): Promise<{
         value: string;
     }>;
-    startPushSDK(): Promise<Boolean>;
 }
 declare const Jpush: JpushWeb;
 export { Jpush };

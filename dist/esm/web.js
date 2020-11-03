@@ -21,11 +21,6 @@ export class JpushWeb extends WebPlugin {
             return options;
         });
     }
-    startPushSDK() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return Promise.resolve(true);
-        });
-    }
 }
 const Jpush = new JpushWeb();
 export { Jpush };

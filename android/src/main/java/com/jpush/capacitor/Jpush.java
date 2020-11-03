@@ -1,4 +1,4 @@
-package com.jpush.plugin.capactior;
+package com.jpush.capacitor;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
