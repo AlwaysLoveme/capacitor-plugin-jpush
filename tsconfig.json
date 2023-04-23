@@ -14,7 +14,10 @@
     "pretty": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "types": [
+      "@capacitor/cli"
+    ]
   },
   "files": ["src/index.ts"]
 }
