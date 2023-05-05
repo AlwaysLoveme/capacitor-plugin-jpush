@@ -1,4 +1,4 @@
-import type { PluginListenerHandle } from '@capacitor/core';
+import type { PluginListenerHandle, PermissionState } from '@capacitor/core';
 
 declare module '@capacitor/cli' {
   export interface PluginsConfig {
@@ -7,14 +7,22 @@ declare module '@capacitor/cli' {
 }
 
 export interface JPushPlugin {
+  /**
+   * enable JPush debug log
+   * @param isDebug 
+   */
+  setDebugMode(isDebug: boolean): Promise<void>;
   setAlias(options: AliasOptions): Promise<void>;
-  deleteAlias(): Promise<void>;
+  deleteAlias(options: DeleteAlias): Promise<void>;
   addTags(options: SetTagsOptions): Promise<void>;
   deleteTags(options: SetTagsOptions): Promise<void>;
   cleanTags(): Promise<void>;
   setBadgeNumber(options?: SetBadgeNumberOptions): Promise<void>;
   removeListeners(): Promise<void>;
   getRegistrationID(): Promise<{registrationId: string}>;
+  checkPermissions(): Promise<PermissionStatus>;
+  requestPermissions(): Promise<PermissionStatus>;
+  openNotificationSetting(): Promise<void>;
   addListener(eventName: "notificationReceived", listenerFunc: (notificationData: ReceiveNotificationData) => void): Promise<PluginListenerHandle> & PluginListenerHandle;
   addListener(eventName: "notificationOpened", listenerFunc: (notificationData: ReceiveNotificationData) => void): Promise<PluginListenerHandle> & PluginListenerHandle;
 }
@@ -27,6 +35,11 @@ export interface SetUpOptions {
 
 export interface AliasOptions {
   alias: string;
+  sequence?: number;
+}
+
+export interface DeleteAlias {
+  sequence?: number;
 }
 
 export interface SetTagsOptions {
@@ -57,4 +70,8 @@ export interface ReceiveNotificationData {
     }
     [x: string]: any;
   };
+}
+
+export interface PermissionStatus {
+  notifications: PermissionState;
 }
