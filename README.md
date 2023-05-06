@@ -87,7 +87,7 @@ On Android 12 and older it won't show a prompt and will just return as granted.
 
 please set both `compileSdkVersion` and `targetSdkVersion` to `33` in `variables.gradle`:
 
-![android studio](./images/20230506181607.png)
+![android studio](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181607.png)
 
 add the following to your app's `build.gradle`:
 ```bash
@@ -95,7 +95,7 @@ manifestPlaceholders = [
   JPUSH_PKGNAME: applicationId,
 ]
 ```
-![](./images/20230506181843.png)
+![](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181843.png)
 
 > Currently does not support the manufacturer channel push
 

@@ -89,7 +89,7 @@ Android 13 之后系统必须要有推送通知权限才可以收到推送消息
 
 在你安卓应用下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 可以忽略此步骤:
 
-![android studio](./images/20230506181607.png)
+![android studio](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181607.png)
 
 将以下代码添加到你应用 `app` 文件夹下的 `build.gradle`:
 ```bash
@@ -97,7 +97,7 @@ manifestPlaceholders = [
   JPUSH_PKGNAME: applicationId,
 ]
 ```
-![](./images/20230506181843.png)
+![JPUSH_PKGNAME](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181843.png)
 
 > Currently does not support the manufacturer channel push
 
