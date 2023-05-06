@@ -6,7 +6,7 @@
   <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=ios&logoColor=white&style=plastic">
     <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic">
   </a>
-   <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
+  <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
     <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic">
   </a>
   <a href="https://www.npmjs.com/package/capacitor-plugin-jpush">
