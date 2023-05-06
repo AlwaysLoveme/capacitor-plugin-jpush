@@ -90,8 +90,8 @@ public class JPushPlugin extends Plugin {
 
         JPushConfig config = new JPushConfig();
         config.setjAppKey(appKey);
-        JPushInterface.init(getContext(), config);
-        JPushInterface.setNotificationCallBackEnable(getContext(), true);
+        JPushInterface.init(context, config);
+        JPushInterface.setNotificationCallBackEnable(context, true);
 
         if (openNotificationAlert != null) {
             notificationAlert = null;
@@ -186,7 +186,7 @@ public class JPushPlugin extends Plugin {
                     // 用户拒绝了通知权限
                     callback.onPermissionDenied();
                     Log.d("权限已拒绝", "" + hasPushPermission());
-//                    context.unregisterReceiver(this);
+                    context.unregisterReceiver(this);
                 }
             }
         };
@@ -195,6 +195,16 @@ public class JPushPlugin extends Plugin {
         context.registerReceiver(permissionReceiver, filter);
     }
 
+    @PluginMethod
+    public void startJPush(PluginCall call) {
+        String appKey = call.getString("appKey");
+        String channel = call.getString("channel");
+        boolean debugMode = call.getBoolean("debugMode", true);
+
+        Context context = getContext();
+        jPushInit(context, appKey, channel, debugMode);
+        call.resolve();
+    }
 
     @PluginMethod
     public void getRegistrationID(PluginCall call) {
@@ -324,15 +334,16 @@ public class JPushPlugin extends Plugin {
         }
     }
 
+    // 检查是否有通知权限
     private boolean hasPushPermission() {
+        Context context = getContext();
         if (Build.VERSION.SDK_INT >= 24) {
-            NotificationManager notificationManager = (NotificationManager) getContext()
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             return notificationManager.areNotificationsEnabled();
         } else {
-            AppOpsManager appOpsManager = (AppOpsManager) getContext().getSystemService(Context.APP_OPS_SERVICE);
-            ApplicationInfo appInfo = getContext().getApplicationInfo();
-            String pkg = getContext().getPackageName();
+            AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            ApplicationInfo appInfo = context.getApplicationInfo();
+            String pkg = context.getPackageName();
             int uid = appInfo.uid;
             try {
                 Class<?> appOpsClass = Class.forName(AppOpsManager.class.getName());

@@ -3,8 +3,11 @@
   <!-- <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
     <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic">
   </a> -->
-  <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=android&logoColor=white&style=plastic">
+  <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=ios&logoColor=white&style=plastic">
     <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic">
+  </a>
+   <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
+    <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic">
   </a>
   <a href="https://www.npmjs.com/package/capacitor-plugin-jpush">
     <img src="https://img.shields.io/npm/v/capacitor-plugin-jpush/latest.svg">
@@ -14,20 +17,20 @@
   </a>
 </p>
 
-[简体中文](./Zh-CN.md)
+[English](./Zh-CN.md)
 
-jpush plugin for capacitor4.0+
+一款基于 `Capacitor 4.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎原生开发的大神贡献你的代码，如果这个插件帮助到了你，请留下你的 `star`，万分感谢，
 
-## Install
+## 安装
 
 ```bash
 npm install capacitor-plugin-jpush
 npx cap sync
 ```
 
-## Usage
+## 使用
 
-in `capacitor.config.ts`:
+在 `capacitor.config.ts` 配置你的极光推送 `Appkey` 等相关信息, 并且确保你的应用包名和极光后台设置的一致:
 
 ```ts
 /// <reference types="capacitor-plugin-jpush" />
@@ -46,13 +49,12 @@ const config: CapacitorConfig = {
 export default config;
 ```
 
-in `capacitor.config.json`:
+或者在 `capacitor.config.json` 中配置:
 
 ```json
 {
   "plugins": {
     "JPush": {
-      // your application appKey on JPush
       "appKey": "",
       "channel": ""
     }
@@ -62,9 +64,9 @@ in `capacitor.config.json`:
 
 ### IOS
 
-On iOS you must enable the Push Notifications capability. See [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) for instructions on how to enable the capability.
+在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能.
 
-After enabling the Push Notifications capability, add the following to your app's `AppDelegate.swift`:
+在打开了推送通知功能之后, 添加以下代码到你应用的 `AppDelegate.swift` 文件:
 
 ```swift
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -77,19 +79,19 @@ func application(_ application: UIApplication, didFailToRegisterForRemoteNotific
 // add the following code to applicationDidBecomeActive function
 NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
 ```
-then use Xcode to open your native project, and set `JPUSHService.h` file's `Target MemberShip` to `CapacitorPluginJPush` which value is `Public`:
+然后找到极光推送的依赖包文件, 也就是 `JPUSHService.h`，点击此文件，在编辑器右边窗口找到 `Target MemberShip`，将 `CapacitorPluginJPush` 勾选中，并将它的值设置为 `Public` 如下图所示（如果没有找到该依赖文件，请在你的前端项目先运行命令 `npx cap sync ios`，如果是 `Ionic` 项目，则是运行 `ionic cap sync ios`）:
 
 ![https://user-images.githubusercontent.com/29945352/235104201-a39bdb6e-314d-423a-beb7-2869f3b27679.png](https://user-images.githubusercontent.com/29945352/235104201-a39bdb6e-314d-423a-beb7-2869f3b27679.png)
 ### Android
-Android 13 requires a permission check in order to send notifications.  You are required to call `checkPermissions()` and `requestPermissions()` accordingly.
+Android 13 之后系统必须要有推送通知权限才可以收到推送消息，所以你可以通过 `checkPermissions()` 方法来检查你的应用是否开启了通知权限，如果没有，则可以通过 `requestPermissions()` 来启用通知权限，如果用户拒绝了，可以通过调用 `openNotificationSetting()` 方法来打开通知权限设置页面， 
 
-On Android 12 and older it won't show a prompt and will just return as granted.
+在 Android 12 及更老的设备，系统默认就是启用了推送通知权限。
 
-please set both `compileSdkVersion` and `targetSdkVersion` to `33` in `variables.gradle`:
+在你安卓应用下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 可以忽略此步骤:
 
 ![android studio](./images/20230506181607.png)
 
-add the following to your app's `build.gradle`:
+将以下代码添加到你应用 `app` 文件夹下的 `build.gradle`:
 ```bash
 manifestPlaceholders = [
   JPUSH_PKGNAME: applicationId,
@@ -99,7 +101,7 @@ manifestPlaceholders = [
 
 > Currently does not support the manufacturer channel push
 
-## Example
+## 代码示例
 
 ```ts
 import { JPush } from 'capacitor-plugin-jpush';

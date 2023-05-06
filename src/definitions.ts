@@ -12,6 +12,10 @@ export interface JPushPlugin {
    * @param isDebug 
    */
   setDebugMode(isDebug: boolean): Promise<void>;
+  /**
+   * set alias for JPush
+   * @param options 
+   */
   setAlias(options: AliasOptions): Promise<void>;
   deleteAlias(options: DeleteAlias): Promise<void>;
   addTags(options: SetTagsOptions): Promise<void>;
@@ -22,6 +26,9 @@ export interface JPushPlugin {
   getRegistrationID(): Promise<{registrationId: string}>;
   checkPermissions(): Promise<PermissionStatus>;
   requestPermissions(): Promise<PermissionStatus>;
+  /**
+   * now only on Android
+   */
   openNotificationSetting(): Promise<void>;
   addListener(eventName: "notificationReceived", listenerFunc: (notificationData: ReceiveNotificationData) => void): Promise<PluginListenerHandle> & PluginListenerHandle;
   addListener(eventName: "notificationOpened", listenerFunc: (notificationData: ReceiveNotificationData) => void): Promise<PluginListenerHandle> & PluginListenerHandle;
