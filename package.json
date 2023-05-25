@@ -38,13 +38,14 @@
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api JPushPlugin --output-readme README.md --output-json dist/docs.json",
-    "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.js",
+    "build": "npm run clean && npm run docgen && npm run fmt && tsc && rollup -c rollup.config.js",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@capacitor/android": "^5.0.0",
+    "@capacitor/cli": "^5.0.4",
     "@capacitor/core": "^5.0.0",
     "@capacitor/docgen": "^0.0.18",
     "@capacitor/ios": "^5.0.0",

@@ -1,7 +1,10 @@
 # capacitor-plugin-jpush
 
 <p align="left">
-  <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=ios&logoColor=white&style=plastic">
+  <!-- <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
+    <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic">
+  </a> -->
+  <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=android&logoColor=white&style=plastic">
     <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic">
   </a>
   <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
@@ -15,24 +18,22 @@
   </a>
 </p>
 
-[English](./README-EN.md) | 简体中文
+[简体中文](./README.md) | English
 
-一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎原生开发的大神贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
+jpush plugin for capacitor3.0+
 
-> 1.0 之后的版本开始支持 `Capacitor5`，0.x 版本仅支持 `Capacitor4`及更早版本。
+> support `Capacitor 5`
 
-> 关于产商通道：`Android` 目前暂未支持产商通道推送。
-
-## 安装
+## Install
 
 ```bash
 npm install capacitor-plugin-jpush
 npx cap sync
 ```
 
-## 使用
+## Usage
 
-在 `capacitor.config.ts` 配置你的极光推送 `Appkey` 等相关信息, 并且确保你的应用包名和极光后台设置的一致:
+in `capacitor.config.ts`:
 
 ```ts
 /// <reference types="capacitor-plugin-jpush" />
@@ -51,7 +52,7 @@ const config: CapacitorConfig = {
 export default config;
 ```
 
-或者在 `capacitor.config.json` 中配置:
+in `capacitor.config.json`:
 
 ```json
 {
@@ -66,9 +67,9 @@ export default config;
 
 ### IOS
 
-在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能.
+On iOS you must enable the Push Notifications capability. See [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) for instructions on how to enable the capability.
 
-在打开了推送通知功能之后, 添加以下代码到你应用的 `AppDelegate.swift` 文件:
+After enabling the Push Notifications capability, add the following to your app's `AppDelegate.swift`:
 
 ```swift
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -82,21 +83,21 @@ func application(_ application: UIApplication, didFailToRegisterForRemoteNotific
 NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
 ```
 
-然后找到极光推送的依赖包文件, 也就是 `JPUSHService.h`，点击此文件，在编辑器右边窗口找到 `Target MemberShip`，将 `CapacitorPluginJPush` 勾选中，并将它的值设置为 `Public` 如下图所示（如果没有找到该依赖文件，请在你的前端项目先运行命令 `npx cap sync ios`，如果是 `Ionic` 项目，则是运行 `ionic cap sync ios`）:
+then use Xcode to open your native project, and set `JPUSHService.h` file's `Target MemberShip` to `CapacitorPluginJPush` which value is `Public`:
 
 ![https://user-images.githubusercontent.com/29945352/235104201-a39bdb6e-314d-423a-beb7-2869f3b27679.png](https://user-images.githubusercontent.com/29945352/235104201-a39bdb6e-314d-423a-beb7-2869f3b27679.png)
 
 ### Android
 
-Android 13 之后系统必须要有推送通知权限才可以收到推送消息，所以你可以通过 `checkPermissions()` 方法来检查你的应用是否开启了通知权限，如果没有，则可以通过 `requestPermissions()` 来启用通知权限，如果用户拒绝了，可以通过调用 `openNotificationSetting()` 方法来打开通知权限设置页面，
+Android 13 requires a permission check in order to send notifications. You are required to call `checkPermissions()` and `requestPermissions()` accordingly.
 
-在 Android 12 及更老的设备，系统默认就是启用了推送通知权限。
+On Android 12 and older it won't show a prompt and will just return as granted.
 
-在你安卓应用下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 可以忽略此步骤:
+please set both `compileSdkVersion` and `targetSdkVersion` to `33` in `variables.gradle`:
 
 ![android studio](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181607.png)
 
-将以下代码添加到你应用 `app` 文件夹下的 `build.gradle`:
+add the following to your app's `build.gradle`:
 
 ```bash
 manifestPlaceholders = [
@@ -104,52 +105,46 @@ manifestPlaceholders = [
 ]
 ```
 
-![JPUSH_PKGNAME](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181843.png)
+![](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181843.png)
 
-## 代码示例
+> Currently does not support the manufacturer channel push
+
+## Example
 
 ```ts
 import { Capacitor } from '@capacitor/core';
 import { JPush } from 'capacitor-plugin-jpush';
 
-const JPushSetup = async () => {
+const jpushSetup = async () => {
   if (Capacitor.isNativePlatform()) {
-    // 推送事件监听
+    // addListener events
     const receivedEvent = await JPush.addListener(
       'notificationReceived',
       data => {
         console.log(data);
       },
     );
-    // 若不需要监听，移除即可
+    // if you don't need，you can remove
     receivedEvent.remove();
 
     JPush.addListener('notificationOpened', data => {
       console.log(data);
     });
 
-    // 检测是否有通知权限
-    JPush.checkPermissions().then(async ({ permission }) => {
-      console.log(permission);
-      if (permission !== 'granted') {
-        // 申请通知权限
+    JPush.checkPermissions().then(({ notifications }) => {
+      console.log(notifications);
+      if (notifications === 'prompt' || notifications === 'denied') {
+        // apply notification permission
         JPush.requestPermissions().then(res => {
-          console.log(res.permission);
-          if(res.permission === "granted") {
-            // 初始化极光推送
-            await JPush.startJPush();
-          }
+          console.log(res.notifications);
         });
-        return;
       }
-      // 初始化极光推送
-      await JPush.startJPush();
     });
   }
 };
 
-const JPushMethods = async () => {
-  // 设置推送别名
+const jpushMethods = async () => {
+  // set alias
   await JPush.setAlias({
     alias: 'alias',
   });
@@ -195,7 +190,7 @@ const JPushMethods = async () => {
 startJPush() => Promise<void>
 ```
 
-启动极光推送服务，即使没有获取到通知权限，也会进行推送服务初始化
+start JPush service
 
 --------------------
 
@@ -206,7 +201,7 @@ startJPush() => Promise<void>
 setDebugMode(isDebug: boolean) => Promise<void>
 ```
 
-开启 debug 模式 log日志
+enable JPush debug log
 
 | Param         | Type                 |
 | ------------- | -------------------- |
@@ -221,7 +216,7 @@ setDebugMode(isDebug: boolean) => Promise<void>
 setAlias(options: AliasOptions) => Promise<void>
 ```
 
-设置推送别名，可作为推送消息的目标对象
+set alias for JPush
 
 | Param         | Type                                                  |
 | ------------- | ----------------------------------------------------- |
@@ -236,8 +231,6 @@ setAlias(options: AliasOptions) => Promise<void>
 deleteAlias(options?: DeleteAlias | undefined) => Promise<void>
 ```
 
-删除推送别名
-
 | Param         | Type                                                |
 | ------------- | --------------------------------------------------- |
 | **`options`** | <code><a href="#deletealias">DeleteAlias</a></code> |
@@ -251,8 +244,6 @@ deleteAlias(options?: DeleteAlias | undefined) => Promise<void>
 addTags(options: SetTagsOptions) => Promise<void>
 ```
 
-设置推送标签
-
 | Param         | Type                                                      |
 | ------------- | --------------------------------------------------------- |
 | **`options`** | <code><a href="#settagsoptions">SetTagsOptions</a></code> |
@@ -265,8 +256,6 @@ addTags(options: SetTagsOptions) => Promise<void>
 ```typescript
 deleteTags(options: SetTagsOptions) => Promise<void>
 ```
-
-删除推送标签
 
 | Param         | Type                                                      |
 | ------------- | --------------------------------------------------------- |
@@ -290,8 +279,6 @@ cleanTags() => Promise<void>
 setBadgeNumber(options?: SetBadgeNumberOptions | undefined) => Promise<void>
 ```
 
-设置 APP 角标数字，设为 0 即清空角标
-
 | Param         | Type                                                                    |
 | ------------- | ----------------------------------------------------------------------- |
 | **`options`** | <code><a href="#setbadgenumberoptions">SetBadgeNumberOptions</a></code> |
@@ -314,8 +301,6 @@ removeListeners() => Promise<void>
 getRegistrationID() => Promise<{ registrationId: string; }>
 ```
 
-获取设备的注册 ID，若服务重新注册，则返回的 ID 是不一样的
-
 **Returns:** <code>Promise&lt;{ registrationId: string; }&gt;</code>
 
 --------------------
@@ -326,8 +311,6 @@ getRegistrationID() => Promise<{ registrationId: string; }>
 ```typescript
 checkPermissions() => Promise<PermissionStatus>
 ```
-
-检查通知权限状态
 
 **Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
 
@@ -340,8 +323,6 @@ checkPermissions() => Promise<PermissionStatus>
 requestPermissions() => Promise<PermissionStatus>
 ```
 
-申请通知权限
-
 **Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
 
 --------------------
@@ -353,7 +334,7 @@ requestPermissions() => Promise<PermissionStatus>
 openNotificationSetting() => Promise<void>
 ```
 
-打开推送通知权限设置页面（目前仅安卓支持）
+now only on Android
 
 --------------------
 
@@ -363,8 +344,6 @@ openNotificationSetting() => Promise<void>
 ```typescript
 addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
 ```
-
-监听推送消息
 
 | Param              | Type                                                                                                       |
 | ------------------ | ---------------------------------------------------------------------------------------------------------- |
@@ -381,8 +360,6 @@ addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: 
 ```typescript
 addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
 ```
-
-监听消息栏通知被点击
 
 | Param              | Type                                                                                                       |
 | ------------------ | ---------------------------------------------------------------------------------------------------------- |
@@ -428,9 +405,9 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 
 #### PermissionStatus
 
-| Prop             | Type                                                        | Description                                                                  |
-| ---------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **`permission`** | <code><a href="#permissionstate">PermissionState</a></code> | prompt: 首次申请，询问。 prompt-with-rationale： 每次都询问。 granted： 已获取权限。 denied：权限已拒绝。 |
+| Prop             | Type                                                        |
+| ---------------- | ----------------------------------------------------------- |
+| **`permission`** | <code><a href="#permissionstate">PermissionState</a></code> |
 
 
 #### PluginListenerHandle
