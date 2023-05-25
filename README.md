@@ -19,7 +19,9 @@
 
 [简体中文](./Zh-CN.md)
 
-jpush plugin for capacitor4.0+
+jpush plugin for capacitor3.0+
+
+> current not support `Capacitor 5`
 
 ## Install
 
