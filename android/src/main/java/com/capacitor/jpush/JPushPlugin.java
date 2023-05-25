@@ -9,10 +9,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
-
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.data.JPushConfig;
-
 import com.getcapacitor.JSArray;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PermissionState;
@@ -22,7 +20,6 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 import com.getcapacitor.annotation.PermissionCallback;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
