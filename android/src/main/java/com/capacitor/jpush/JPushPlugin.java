@@ -151,7 +151,7 @@ public class JPushPlugin extends Plugin {
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.jpush_contain_bg)
+                    .setSmallIcon(R.drawable.jpush_btn_bg_green_playable)
                     .setContentTitle("title")
                     .setContentText("content")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -159,7 +159,7 @@ public class JPushPlugin extends Plugin {
             notificationManagerCompat.notify(1, builder.build());
         } else {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.jpush_contain_bg)
+                    .setSmallIcon(R.drawable.jpush_btn_bg_green_playable)
                     .setContentTitle("title")
                     .setContentText("content")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
