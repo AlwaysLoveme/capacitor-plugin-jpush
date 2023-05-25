@@ -1,8 +1,17 @@
+import Capacitor
 import Foundation
+import UserNotifications
 
 @objc public class JPush: NSObject {
-    @objc public func echo(_ value: String) -> String {
-        print(value)
-        return value
+    public func requestPermissions(with completion: ((Bool, Error?) -> Void)? = nil) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            completion?(granted, error)
+        }
+    }
+
+    public func checkPermissions(with completion: ((UNAuthorizationStatus) -> Void)? = nil) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            completion?(settings.authorizationStatus)
+        }
     }
 }
