@@ -1,6 +1,6 @@
 {
   "name": "capacitor-plugin-jpush",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "jpush plugin for capacitor3.0+",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -38,7 +38,7 @@
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api JPushPlugin --output-readme README.md --output-json dist/docs.json",
-    "build": "npm run clean && npm run docgen && npm run fmt && tsc && rollup -c rollup.config.js",
+    "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.js",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"

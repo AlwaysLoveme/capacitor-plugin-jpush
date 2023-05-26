@@ -19,9 +19,15 @@
 
 一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎原生开发的大神贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
 
+> 重要更新：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
+
 > 1.0 之后的版本开始支持 `Capacitor5`，0.x 版本仅支持 `Capacitor4`及更早版本。
 
 > 关于产商通道：`Android` 目前暂未支持产商通道推送。
+
+> 关于版本问题：不知道为什么，`1.0.0 - 1.0.4` 的版本在 `2020` 年就已经有版本记录了，所以这几个版本都跳过了，这个仓库是 2023-04-23 创建的，不知道为啥 `2020` 年有版本记录，也许是之前有人创建过同名包后来又注销了。
+
+
 
 ## 安装
 
@@ -64,9 +70,9 @@ export default config;
 }
 ```
 
-### IOS
+### IOS设置
 
-在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能.
+在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能（如未启用，会导致 `JPush` 无法注册 `deviceToken`）。
 
 在打开了推送通知功能之后, 添加以下代码到你应用的 `AppDelegate.swift` 文件:
 
@@ -86,7 +92,7 @@ NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActi
 
 ![https://user-images.githubusercontent.com/29945352/235104201-a39bdb6e-314d-423a-beb7-2869f3b27679.png](https://user-images.githubusercontent.com/29945352/235104201-a39bdb6e-314d-423a-beb7-2869f3b27679.png)
 
-### Android
+### Android设置
 
 Android 13 之后系统必须要有推送通知权限才可以收到推送消息，所以你可以通过 `checkPermissions()` 方法来检查你的应用是否开启了通知权限，如果没有，则可以通过 `requestPermissions()` 来启用通知权限，如果用户拒绝了，可以通过调用 `openNotificationSetting()` 方法来打开通知权限设置页面，
 
@@ -195,7 +201,7 @@ const JPushMethods = async () => {
 startJPush() => Promise<void>
 ```
 
-启动极光推送服务，即使没有获取到通知权限，也会进行推送服务初始化
+启动极光推送服务，即使没有获取到通知权限，也会进行推送服务初始化，建议在获取到通知权限后再进行极光初始化，检查/获取通知权限请参考上面的代码示例
 
 --------------------
 
