@@ -15,7 +15,7 @@
   </a>
 </p>
 
-[English](./README-EN.md) | 简体中文
+简体中文 | [English](./README-EN.md)
 
 一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎原生开发的大神贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
 
@@ -71,8 +71,9 @@ export default config;
 ```
 
 ### IOS设置
-
 在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能（如未启用，会导致 `JPush` 无法注册 `deviceToken`）。
+
+> 你本机的 Xcode 需要使用 Xcode 14 及以上版本，请注意升级！
 
 在打开了推送通知功能之后, 添加以下代码到你应用的 `AppDelegate.swift` 文件:
 
