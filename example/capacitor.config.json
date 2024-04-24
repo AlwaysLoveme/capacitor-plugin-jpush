@@ -1,11 +1,15 @@
 {
-  "appId": "com.example.plugin",
-  "appName": "example",
+  "appId": "com.ionic.demotest",
+  "appName": "jpush",
   "bundledWebRuntime": false,
   "webDir": "dist",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
+    },
+    "JPush": {
+      "appKey": "4dde5a4f2c47443953bcf027",
+      "channel": ""
     }
   }
 }

@@ -13,12 +13,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor/core": "latest",
-    "@capacitor/camera": "latest",
-    "@capacitor/splash-screen": "latest",
-    "capacitor-plugin-jpush": "file:..",
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/camera": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
     "@capacitor/ios": "^5.0.0",
-    "@capacitor/android": "^5.0.0"
+    "@capacitor/splash-screen": "^6.0.0",
+    "capacitor-plugin-jpush": "link:../capacitor-plugin-jpush"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",
