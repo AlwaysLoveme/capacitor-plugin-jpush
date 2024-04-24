@@ -104,10 +104,14 @@ public class JPushPlugin: CAPPlugin {
     }
 
     @objc func didFinishLaunching(_ notification: NSNotification) {}
+    
     // APP 返回前台时清空角标
     @objc func didBecomeActive(_ notification: NSNotification) {
-        JPUSHService.setBadge(0)
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        let cleanBadge = getConfig().getBoolean("cleanBadgeWhenActive", false)
+        if cleanBadge {
+            JPUSHService.setBadge(0)
+            UIApplication.shared.applicationIconBadgeNumber = 0
+        }
     }
 
     @objc func startJPush(_ call: CAPPluginCall) {

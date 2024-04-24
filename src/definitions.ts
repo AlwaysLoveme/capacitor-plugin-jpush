@@ -9,6 +9,10 @@ declare module '@capacitor/cli' {
       appKey: string;
       channel?: string;
       isProduction?: boolean;
+      /**
+       * 设备返回前台是,是否自动清空角标,默认 false
+       */
+      cleanBadgeWhenActive?: boolean;
     };
   }
 }
@@ -74,7 +78,7 @@ export interface JPushPlugin {
   addListener(
     eventName: 'notificationReceived',
     listenerFunc: (notificationData: ReceiveNotificationData) => void,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
   /**
    * 监听消息栏通知被点击
    * @param eventName
@@ -83,7 +87,7 @@ export interface JPushPlugin {
   addListener(
     eventName: 'notificationOpened',
     listenerFunc: (notificationData: ReceiveNotificationData) => void,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 }
 
 export interface AliasOptions {

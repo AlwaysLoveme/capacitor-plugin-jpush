@@ -1,7 +1,7 @@
 ext {
     JPUSH_APPKEY = ""
     JPUSH_CHANNEL = ""
-    applicationId =  project.parent?:project.android.defaultConfig.applicationId
+    applicationId = project.hasProperty('android') ? (project.parent?:project.android.defaultConfig.applicationId) : 'defaultApplicationId'
     junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
     androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
     androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
@@ -16,7 +16,7 @@ buildscript {
         maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.0'
+        classpath 'com.android.tools.build:gradle:8.2.1'
         // hms，若不集成华为厂商通道，可直接跳过
         // 增加AGC插件配置，请您参见AGC插件依赖关系选择合适的AGC插件版本。
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
@@ -36,10 +36,10 @@ apply plugin: 'com.huawei.agconnect'
 
 android {
     namespace "com.capacitor.jpush"
-    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 33
+    compileSdk project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
     defaultConfig {
         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 22
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 33
+        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
