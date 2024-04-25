@@ -2,35 +2,35 @@
 
 <p align="left">
   <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=ios&logoColor=white&style=plastic">
-    <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic">
+    <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic" alt="">
   </a>
   <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
-    <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic">
+    <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic" alt="">
   </a>
   <a href="https://www.npmjs.com/package/capacitor-plugin-jpush">
-    <img src="https://img.shields.io/npm/v/capacitor-plugin-jpush/latest.svg">
+    <img src="https://img.shields.io/npm/v/capacitor-plugin-jpush/latest.svg" alt="">
   </a>
   <a href="https://www.npmjs.com/package/capacitor-plugin-jpush">
-    <img src="https://img.shields.io/npm/dm/capacitor-plugin-jpush.svg"/>
+    <img src="https://img.shields.io/npm/dm/capacitor-plugin-jpush.svg" alt="">
   </a>
 </p>
 
 简体中文 | [English](./README-EN.md)
 
-一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎原生开发的大神贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
+一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
 
-> 重要更新：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
+- v0.x 版本支持 `Capacitor4` 及更早版本
+- v1.0+ 版本支持 `Capacitor5`
 
-> 1.0 之后的版本开始支持 `Capacitor5`，0.x 版本仅支持 `Capacitor4`及更早版本。
+> **重要更新** ：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
 
-> 关于产商通道：`Android` 目前暂未支持产商通道推送。
-
-> 关于版本问题：不知道为什么，`1.0.0 - 1.0.4` 的版本在 `2020` 年就已经有版本记录了，所以这几个版本都跳过了，这个仓库是 2023-04-23 创建的，不知道为啥 `2020` 年有版本记录，也许是之前有人创建过同名包后来又注销了。
+> 关于产商通道：`Android` 目前暂未支持产商通道推送, 有兴趣开发的兄弟可以提PR
 
 ## 安装
 
 ```bash
 npm install capacitor-plugin-jpush
+
 npx cap sync
 ```
 
@@ -70,11 +70,11 @@ export default config;
 
 ### IOS设置
 
-在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能（如未启用，会导致 `JPush` 无法注册 `deviceToken`）。
+目前 `IOS` 的极光推送版本是 5.0.0，在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能（如未启用，会导致 `JPush` 无法注册 `deviceToken`）。
 
 > 你本机的 Xcode 需要使用 Xcode 14 及以上版本，请注意升级！
 
-在打开了推送通知功能之后, 添加以下代码到你应用的 `AppDelegate.swift` 文件:
+在打开了推送通知功能之后, 添加以下代码到 `IOS` 应用的 `AppDelegate.swift` 文件:
 
 ```swift
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -96,7 +96,7 @@ NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActi
 
 Android 13 之后系统必须要有推送通知权限才可以收到推送消息，所以你可以通过 `checkPermissions()` 方法来检查你的应用是否开启了通知权限，如果没有，则可以通过 `requestPermissions()` 来启用通知权限，如果用户拒绝了，可以通过调用 `openNotificationSetting()` 方法来打开通知权限设置页面，
 
-在 Android 12 及更老的设备，系统默认就是启用了推送通知权限。
+在 Android 12 及更老的设备，系统默认启用推送通知权限。
 
 在你安卓应用根目录下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 以上 可以忽略此步骤;
 
