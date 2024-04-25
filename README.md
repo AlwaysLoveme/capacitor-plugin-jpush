@@ -77,6 +77,8 @@ export default config;
 在打开了推送通知功能之后, 添加以下代码到 `IOS` 应用的 `AppDelegate.swift` 文件:
 
 ```swift
+import Foundation
+
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
   NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: deviceToken)
 }
@@ -84,8 +86,10 @@ func application(_ application: UIApplication, didFailToRegisterForRemoteNotific
   NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
 }
 
-// add the following code to applicationDidBecomeActive function
-NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
+// 这个函数 capacitor 生成的项目中可能自带, 只需将里面的内容复制过去即可
+func applicationDidBecomeActive(_ application: UIApplication) {
+    NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
+}
 ```
 
 然后找到极光推送的依赖包文件, 也就是 `JPUSHService.h`，点击此文件，在编辑器右边窗口找到 `Target MemberShip`，将 `CapacitorPluginJPush` 勾选中，并将它的值设置为 `Public` 如下图所示（如果没有找到该依赖文件，请在你的前端项目先运行命令 `npx cap sync ios`，如果是 `Ionic` 项目，则是运行 `ionic cap sync ios`）:
