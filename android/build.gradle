@@ -1,6 +1,6 @@
 ext {
     JPUSH_APPKEY = ""
-    JPUSH_CHANNEL = ""
+    JPUSH_CHANNEL = "developer-default"
     applicationId = project.hasProperty('android') ? (project.parent?:project.android.defaultConfig.applicationId) : 'defaultApplicationId'
     junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
     androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
@@ -87,7 +87,6 @@ dependencies {
 
     // -------------------------------- jpush start
     
-    // 此处以JPush 5.0.0 版本为例，5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
     implementation 'cn.jiguang.sdk:jpush:5.0.0'
 
     // 极光厂商插件版本与接入 JPush 版本保持一致，下同
