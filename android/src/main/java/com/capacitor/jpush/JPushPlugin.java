@@ -163,7 +163,7 @@ public class JPushPlugin extends Plugin {
     public void setBadgeNumber(PluginCall call) {
         int badge = call.getInt("badge", 0);
         JPushInterface.setBadgeNumber(getContext(), badge);
-        call.resolve('badge set successed');
+        call.resolve();
     }
 
     @PluginMethod
