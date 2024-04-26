@@ -86,8 +86,12 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
 
     // -------------------------------- jpush start
-    
-    implementation 'cn.jiguang.sdk:jpush:5.0.0'
+
+    // 国内 jpush 版本
+    implementation 'cn.jiguang.sdk:jpush:5.3.1'
+
+    // Google Play 版本 SDK, 仅适用于海外开发者
+    // implementation 'cn.jiguang.sdk:jpush-google:5.3.1'
 
     // 极光厂商插件版本与接入 JPush 版本保持一致，下同
     // 接入华为厂商

@@ -2,20 +2,19 @@ package com.capacitor.jpush;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
-import cn.jpush.android.helper.Logger;
-import cn.jpush.android.service.JPushMessageReceiver;
+import cn.jpush.android.service.JPushMessageService;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JPushEventReceiver extends JPushMessageReceiver {
+public class JPushEventReceiver extends JPushMessageService {
 
     private static final String TAG = JPushEventReceiver.class.getSimpleName();
 
@@ -82,7 +81,9 @@ public class JPushEventReceiver extends JPushMessageReceiver {
     @Override
     public void onRegister(Context context, String regId) {
         JLogger.d(TAG, "onRegister:" + regId);
-        JPushPlugin.transmitReceiveRegistrationId(regId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            JPushPlugin.transmitReceiveRegistrationId(regId);
+        }
     }
 
     @Override

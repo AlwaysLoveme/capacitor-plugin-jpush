@@ -7,10 +7,13 @@ import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
+
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.data.JPushConfig;
+
 import com.getcapacitor.JSArray;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PermissionState;
@@ -20,6 +23,7 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 import com.getcapacitor.annotation.PermissionCallback;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,18 +32,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 @CapacitorPlugin(
-    name = "JPush",
-    permissions = { @Permission(alias = JPushPlugin.LOCAL_NOTIFICATIONS, strings = { Manifest.permission.POST_NOTIFICATIONS }) }
+        name = "JPush",
+        permissions = {@Permission(alias = JPushPlugin.LOCAL_NOTIFICATIONS, strings = {Manifest.permission.POST_NOTIFICATIONS})}
 )
 public class JPushPlugin extends Plugin {
 
     static final String LOCAL_NOTIFICATIONS = "permission";
-    private static JPushPlugin instance;
+    public static JPushPlugin instance;
     private static final String TAG = "JPushPlugin";
 
     static String notificationTitle;
@@ -82,7 +87,8 @@ public class JPushPlugin extends Plugin {
     @Override
     public void load() {
         super.load();
-        instance = this;
+        JPushPlugin.instance = this;
+        Log.d("instanceAPP", "'hello'");
     }
 
     @PluginMethod
@@ -310,6 +316,26 @@ public class JPushPlugin extends Plugin {
         JPushPlugin.notificationTitle = null;
         JPushPlugin.notificationAlert = null;
     }
+
+     static Object notificationReceived(String title, String content, String extraInfo) {
+        JSObject data = new JSObject();
+        Log.d("NotificationData1", "" + extraInfo);
+        try {
+            data.put("title", title);
+            data.put("content", content);
+            Log.d("NotificationData2", "" + extraInfo);
+            JSObject extraInfoObj = new JSObject(extraInfo);
+            data.put("rawData", extraInfoObj);
+
+            Log.d("NotificationData", "" + data);
+            Log.d("NotificationPush", "" + instance + JPushPlugin.instance);
+            JPushPlugin.instance.notifyListeners("notificationReceived", data);
+        } catch (JSONException e) {
+            Log.d("ERROR", String.valueOf(e));
+            e.printStackTrace();
+        }
+         return null;
+     }
 
     static void transmitReceiveRegistrationId(String rId) {
         if (instance == null) {
