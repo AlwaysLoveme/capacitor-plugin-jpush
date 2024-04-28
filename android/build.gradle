@@ -1,7 +1,5 @@
 ext {
-    JPUSH_APPKEY = ""
-    JPUSH_CHANNEL = "developer-default"
-    applicationId = project.hasProperty('android') ? (project.parent?:project.android.defaultConfig.applicationId) : 'defaultApplicationId'
+    applicationId = rootProject.hasProperty("android") ? rootProject.android.defaultConfig.applicationId : "defaultApplicationId"
     junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
     androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
     androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
@@ -49,12 +47,6 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
-
-        manifestPlaceholders = [
-            JPUSH_PKGNAME: "$applicationId",
-            JPUSH_APPKEY: "$JPUSH_APPKEY",
-            JPUSH_CHANNEL: "$JPUSH_CHANNEL"
-        ]
     }
     buildTypes {
         release {

@@ -9,23 +9,30 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
-public class JPushMessageReceiver extends JPushMessageService{
 
-//    @Override
-//    public void onMessage(Context context, CustomMessage message) {
-//        super.onMessage(context, message);
-//
-//        Log.d("JPush Message Received", "" + message);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-////            JPushPlugin.transmitMessageReceive(message.notificationContent, message.notificationExtras);
-//        }
-//    }
-//
+public class JPushMessageReceiver extends JPushMessageService {
+
+    // 收到自定义通知回调
     @Override
-    public Notification getNotification(Context context, NotificationMessage message){
+    public void onMessage(Context context, CustomMessage message) {
+        super.onMessage(context, message);
+        Log.d("JPush Message Received", "" + message);
+        JPushPlugin.handleNotificationListener("notificationReceived", message.title, message.message, message.extra);
+    }
+
+    // 收到通知回调
+    @Override
+    public void onNotifyMessageArrived(Context context, NotificationMessage message) {
         Log.d("JPush getNotification", "" + JPushPlugin.instance);
-         JPushPlugin.notificationReceived(message.notificationTitle, message.notificationContent, message.notificationExtras);
-         return null;
+        JPushPlugin.handleNotificationListener("notificationReceived", message.notificationTitle, message.notificationContent, message.notificationExtras);
+    }
+
+    // 点击通知回调
+    @Override
+    public void onNotifyMessageOpened(Context context, NotificationMessage message) {
+        super.onNotifyMessageOpened(context, message);
+        Log.d("Notification Clicked", "" + message);
+        JPushPlugin.handleNotificationListener("notificationOpened", message.notificationTitle, message.notificationContent, message.notificationExtras);
     }
 
     public void onRegister(Context context, String rid) {

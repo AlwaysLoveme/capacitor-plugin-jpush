@@ -141,21 +141,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".JPushReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" />
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
-                <action android:name="cn.jpush.android.intent.CONNECTION" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </receiver>
-
         <!-- Required SDK 核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
@@ -163,28 +148,6 @@
         <receiver
             android:name="cn.jpush.android.service.SchedulerReceiver"
             android:exported="false" />
-
-        <!-- Required since 3.0.7 -->
-        <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
-        <!-- 3.3.0开始所有事件将通过该类回调 -->
-        <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
-        <!--        <receiver-->
-        <!--            android:name=".JPushEventReceiver"-->
-        <!--            android:exported="false">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />-->
-        <!--                <category android:name="${applicationId}" />-->
-        <!--            </intent-filter>-->
-        <!--        </receiver>-->
-
-        <!-- User defined. 用户自定义 Receiver 接收被拉起回调-->
-        <!-- 自定义 Receiver 组件，继承cn.jpush.android.service.WakedResultReceiver类,复写onWake(int wakeType)或 onWake(Context context, int wakeType)方法以监听被拉起 -->
-        <!--        <receiver android:name="xx.xx.xx.MyWakedResultReceiver">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="cn.jpush.android.intent.WakedReceiver" />-->
-        <!--                <category android:name="${applicationId}" />-->
-        <!--            </intent-filter>-->
-        <!--        </receiver>-->
 
         <!-- Required since 5.2.0 -->
         <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定义的Service -->
@@ -234,12 +197,12 @@
 
         <meta-data
             android:name="JPUSH_CHANNEL"
-            android:value="${JPUSH_CHANNEL}"
+            android:value=""
             tools:replace="android:value" />
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="${JPUSH_APPKEY}"
+            android:value=""
             tools:replace="android:value" />
     </application>
 

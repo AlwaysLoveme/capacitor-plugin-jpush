@@ -102,20 +102,7 @@ Android 13 之后系统必须要有推送通知权限才可以收到推送消息
 
 在 Android 12 及更老的设备，系统默认启用推送通知权限。
 
-在你安卓应用根目录下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 以上 可以忽略此步骤;
-
-在 android 项目中的 `build.gradle` 文件中加入以下变量配置(注意是 app 文件夹下的`build.gradle`):
-
-```bash
-defaultConfig {
-  ...
-  manifestPlaceholders = [
-    JPUSH_PKGNAME: applicationId,
-  ]
-}
-```
-
-![android studio](./screens/android-1.png)
+在你安卓应用根目录下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 以上 可以忽略此步骤.
 
 ## 代码示例
 

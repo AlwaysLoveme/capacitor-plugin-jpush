@@ -14,11 +14,13 @@ import androidx.core.app.NotificationManagerCompat;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.data.JPushConfig;
 
+import com.getcapacitor.Bridge;
 import com.getcapacitor.JSArray;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PermissionState;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
+import com.getcapacitor.PluginHandle;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
@@ -36,24 +38,23 @@ import java.util.Set;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+
 @CapacitorPlugin(
         name = "JPush",
         permissions = {@Permission(alias = JPushPlugin.LOCAL_NOTIFICATIONS, strings = {Manifest.permission.POST_NOTIFICATIONS})}
 )
 public class JPushPlugin extends Plugin {
 
+    public static Bridge staticBridge = null;
+
     static final String LOCAL_NOTIFICATIONS = "permission";
     public static JPushPlugin instance;
     private static final String TAG = "JPushPlugin";
 
-    static String notificationTitle;
-    static String notificationAlert;
-    static Map<String, Object> notificationExtras = new HashMap<String, Object>();
+    public static String notificationTitle;
+    public static String notificationAlert;
+    public static String notificationExtras;
 
-    static String openNotificationTitle;
-    static String openNotificationAlert;
-    static Map<String, Object> openNotificationExtras = new HashMap<String, Object>();
 
     private void jPushInit(PluginCall call) {
         Context context = getContext();
@@ -73,27 +74,19 @@ public class JPushPlugin extends Plugin {
         JPushInterface.init(context, config);
         JPushInterface.setNotificationCallBackEnable(context, true);
 
-        if (openNotificationAlert != null) {
-            notificationAlert = null;
-            transmitNotificationOpen(openNotificationTitle, openNotificationAlert, openNotificationExtras);
-        }
-        if (notificationAlert != null) {
-            transmitNotificationReceive(notificationTitle, notificationAlert, notificationExtras);
-        }
-
         call.resolve();
     }
 
     @Override
     public void load() {
         super.load();
-        JPushPlugin.instance = this;
+        staticBridge = this.bridge;
         Log.d("instanceAPP", "'hello'");
     }
 
     @PluginMethod
     public void startJPush(PluginCall call) {
-        jPushInit(call);
+        this.jPushInit(call);
     }
 
     @PluginMethod
@@ -206,8 +199,10 @@ public class JPushPlugin extends Plugin {
         Context context = getContext();
         NotificationManagerCompat.from(context).cancelAll();
         Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         call.resolve();
@@ -280,29 +275,6 @@ public class JPushPlugin extends Plugin {
         return data;
     }
 
-    /**
-     * 自定义通知
-     */
-    static void transmitMessageReceive(String message, Map<String, Object> extras) {
-        if (instance == null) {
-            return;
-        }
-        JSObject data = getMessageObject(message, extras);
-        instance.notifyListeners("messageReceived", data);
-    }
-
-    /**
-     * 消息点击
-     */
-    static void transmitNotificationOpen(String title, String alert, Map<String, Object> extras) {
-        if (instance == null) {
-            return;
-        }
-        JSObject data = getNotificationObject(title, alert, extras);
-        instance.notifyListeners("notificationOpened", data);
-        JPushPlugin.openNotificationTitle = null;
-        JPushPlugin.openNotificationAlert = null;
-    }
 
     /**
      * 收到消息推送
@@ -317,26 +289,6 @@ public class JPushPlugin extends Plugin {
         JPushPlugin.notificationAlert = null;
     }
 
-     static Object notificationReceived(String title, String content, String extraInfo) {
-        JSObject data = new JSObject();
-        Log.d("NotificationData1", "" + extraInfo);
-        try {
-            data.put("title", title);
-            data.put("content", content);
-            Log.d("NotificationData2", "" + extraInfo);
-            JSObject extraInfoObj = new JSObject(extraInfo);
-            data.put("rawData", extraInfoObj);
-
-            Log.d("NotificationData", "" + data);
-            Log.d("NotificationPush", "" + instance + JPushPlugin.instance);
-            JPushPlugin.instance.notifyListeners("notificationReceived", data);
-        } catch (JSONException e) {
-            Log.d("ERROR", String.valueOf(e));
-            e.printStackTrace();
-        }
-         return null;
-     }
-
     static void transmitReceiveRegistrationId(String rId) {
         if (instance == null) {
             return;
@@ -344,5 +296,34 @@ public class JPushPlugin extends Plugin {
         JSObject data = new JSObject();
         data.put("registrationId", rId);
         instance.notifyListeners("receiveRegistrationId", data);
+    }
+
+    public static JPushPlugin getJPushInstance() {
+        if (staticBridge != null && staticBridge.getWebView() != null) {
+            PluginHandle handle = staticBridge.getPlugin("JPush");
+            if (handle == null) {
+                return null;
+            }
+            return (JPushPlugin) handle.getInstance();
+        }
+        return null;
+    }
+
+    public static void handleNotificationListener(String eventName, String title, String content, String extraInfo) {
+        try{
+            JSObject data = new JSObject();
+            data.put("title", title);
+            data.put("content", content);
+            JSObject rowDataObj = new JSObject();
+            rowDataObj.put("extra", new JSObject(extraInfo));
+            data.put("rawData", rowDataObj);
+
+            JPushPlugin jPushInstance = JPushPlugin.getJPushInstance();
+            if(jPushInstance != null) {
+                jPushInstance.notifyListeners(eventName, data);
+            }
+        }catch (Exception e) {
+            Log.e("Error","An error occurred", e);
+        }
     }
 }
