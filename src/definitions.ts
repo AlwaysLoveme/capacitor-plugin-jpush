@@ -1,3 +1,5 @@
+/// <reference types="@capacitor/cli" />
+
 import type { PluginListenerHandle, PermissionState } from '@capacitor/core';
 
 declare module '@capacitor/cli' {
