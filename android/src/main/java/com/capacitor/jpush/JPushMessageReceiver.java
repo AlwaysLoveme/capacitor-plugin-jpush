@@ -1,11 +1,9 @@
 package com.capacitor.jpush;
 
-import android.app.Notification;
-import android.content.Context;
 import android.os.Build;
 import android.util.Log;
+import android.content.Context;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
@@ -16,14 +14,15 @@ public class JPushMessageReceiver extends JPushMessageService {
     @Override
     public void onMessage(Context context, CustomMessage message) {
         super.onMessage(context, message);
-        Log.d("JPush Message Received", "" + message);
+        JLogger.d("JPush Message Received", "" + message);
         JPushPlugin.handleNotificationListener("notificationReceived", message.title, message.message, message.extra);
     }
 
     // 收到通知回调
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage message) {
-        Log.d("JPush getNotification", "" + JPushPlugin.instance);
+        super.onNotifyMessageArrived(context, message);
+        JLogger.d("JPush getNotification", "" + message);
         JPushPlugin.handleNotificationListener("notificationReceived", message.notificationTitle, message.notificationContent, message.notificationExtras);
     }
 
@@ -31,12 +30,14 @@ public class JPushMessageReceiver extends JPushMessageService {
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage message) {
         super.onNotifyMessageOpened(context, message);
-        Log.d("Notification Clicked", "" + message);
+        JLogger.d("Notification Clicked", "" + message);
         JPushPlugin.handleNotificationListener("notificationOpened", message.notificationTitle, message.notificationContent, message.notificationExtras);
     }
 
+    @Override
     public void onRegister(Context context, String rid) {
-        Log.d("JPush onRegister", "" + rid);
+        super.onRegister(context, rid);
+        JLogger.d("JPush onRegister", rid);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             JPushPlugin.transmitReceiveRegistrationId(rid);
         }

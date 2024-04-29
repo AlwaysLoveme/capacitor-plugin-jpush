@@ -8,7 +8,6 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
 
 import cn.jpush.android.api.JPushInterface;
@@ -26,7 +25,6 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 import com.getcapacitor.annotation.PermissionCallback;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -45,14 +43,15 @@ import org.json.JSONObject;
 )
 public class JPushPlugin extends Plugin {
 
+    private final JPush jPushTools = new JPush();
+
     public static Bridge staticBridge = null;
 
     static final String LOCAL_NOTIFICATIONS = "permission";
-    public static JPushPlugin instance;
     private static final String TAG = "JPushPlugin";
 
     public static String notificationTitle;
-    public static String notificationAlert;
+    public static String notificationContent;
     public static String notificationExtras;
 
 
@@ -67,7 +66,7 @@ public class JPushPlugin extends Plugin {
         }
         JPushInterface.setDebugMode(debugMode);
         JPushInterface.setChannel(context, channel);
-        Log.d(TAG, "极光推送初始化" + appKey + "," + channel);
+        JLogger.d(TAG, "极光推送初始化" + appKey + "," + channel);
 
         JPushConfig config = new JPushConfig();
         config.setjAppKey(appKey);
@@ -81,7 +80,14 @@ public class JPushPlugin extends Plugin {
     public void load() {
         super.load();
         staticBridge = this.bridge;
-        Log.d("instanceAPP", "'hello'");
+
+        if (notificationTitle != null && notificationContent != null) {
+            JPushPlugin.handleNotificationListener("notificationReceived", notificationTitle, notificationContent, notificationExtras);
+
+            notificationTitle = null;
+            notificationContent = null;
+            notificationExtras = null;
+        }
     }
 
     @PluginMethod
@@ -107,26 +113,19 @@ public class JPushPlugin extends Plugin {
     @PluginMethod
     public void setAlias(PluginCall call) {
         String alias = call.getString("alias");
-        int sequence = call.hasOption("sequence") ? call.getInt("sequence", -1) : -1;
-        JPushInterface.setAlias(getContext(), sequence, alias);
+        JPushInterface.setAlias(getContext(), jPushTools.sequenceNumber(call), alias);
         call.resolve();
     }
 
     @PluginMethod
     public void deleteAlias(PluginCall call) {
-        int sequence = call.getInt("sequence", -1);
-        JPushInterface.deleteAlias(getContext(), sequence);
+        JPushInterface.deleteAlias(getContext(), jPushTools.sequenceNumber(call));
         call.resolve();
     }
 
     @PluginMethod
     public void setTags(PluginCall call) throws JSONException {
-        JSArray tags = call.getArray("tags", JSArray.from(String.class));
-        if (tags == null || tags.length() == 0) {
-            call.reject("tags参数不能为空");
-            return;
-        }
-
+        JSArray tags = jPushTools.getTagsValue(call);
         List<String> tagList = tags.toList();
         Set<String> tagSet = new HashSet<>(tagList);
 
@@ -138,12 +137,7 @@ public class JPushPlugin extends Plugin {
 
     @PluginMethod
     public void deleteTags(PluginCall call) throws JSONException {
-        JSArray tags = call.getArray("tags", JSArray.from(String.class));
-        if (tags == null || tags.length() == 0) {
-            call.reject("tags参数不能为空");
-            return;
-        }
-
+        JSArray tags = jPushTools.getTagsValue(call);
         List<String> tagList = tags.toList();
         Set<String> tagSet = new HashSet<>(tagList);
         JPushInterface.deleteTags(getContext(), 0, tagSet);
@@ -160,8 +154,8 @@ public class JPushPlugin extends Plugin {
 
     @PluginMethod
     public void setBadgeNumber(PluginCall call) {
-        int badge = call.getInt("badge", 0);
-        JPushInterface.setBadgeNumber(getContext(), badge);
+        Integer badge = call.getInt("badge", 0);
+        JPushInterface.setBadgeNumber(getContext(), badge != null ? badge : 0);
         call.resolve();
     }
 
@@ -276,26 +270,13 @@ public class JPushPlugin extends Plugin {
     }
 
 
-    /**
-     * 收到消息推送
-     */
-    static void transmitNotificationReceive(String title, String alert, Map<String, Object> extras) {
-        if (instance == null) {
-            return;
-        }
-        JSObject data = getNotificationObject(title, alert, extras);
-        instance.notifyListeners("notificationReceived", data);
-        JPushPlugin.notificationTitle = null;
-        JPushPlugin.notificationAlert = null;
-    }
-
     static void transmitReceiveRegistrationId(String rId) {
-        if (instance == null) {
-            return;
+        JPushPlugin jPushInstance = JPushPlugin.getJPushInstance();
+        if (jPushInstance != null) {
+            JSObject data = new JSObject();
+            data.put("registrationId", rId);
+            jPushInstance.notifyListeners("receiveRegistrationId", data);
         }
-        JSObject data = new JSObject();
-        data.put("registrationId", rId);
-        instance.notifyListeners("receiveRegistrationId", data);
     }
 
     public static JPushPlugin getJPushInstance() {
@@ -310,7 +291,7 @@ public class JPushPlugin extends Plugin {
     }
 
     public static void handleNotificationListener(String eventName, String title, String content, String extraInfo) {
-        try{
+        try {
             JSObject data = new JSObject();
             data.put("title", title);
             data.put("content", content);
@@ -318,12 +299,16 @@ public class JPushPlugin extends Plugin {
             rowDataObj.put("extra", new JSObject(extraInfo));
             data.put("rawData", rowDataObj);
 
+
             JPushPlugin jPushInstance = JPushPlugin.getJPushInstance();
-            if(jPushInstance != null) {
+            if (jPushInstance != null) {
+                notificationTitle = title;
+                notificationContent = content;
+                notificationExtras = extraInfo;
                 jPushInstance.notifyListeners(eventName, data);
             }
-        }catch (Exception e) {
-            Log.e("Error","An error occurred", e);
+        } catch (Exception e) {
+            JLogger.e("Error", "An error occurred" + e);
         }
     }
 }

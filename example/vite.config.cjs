@@ -23,7 +23,7 @@ export default async () => {
       assetsInlineLimit: 0,
       emptyOutDir: true,
       rollupOptions: {
-        treeshake: false,
+        treeshake: true,
       },
     },
     resolve: {

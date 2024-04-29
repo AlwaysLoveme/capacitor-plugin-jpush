@@ -343,7 +343,7 @@ openNotificationSetting() => Promise<void>
 ### addListener('notificationReceived', ...)
 
 ```typescript
-addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle>
 ```
 
 监听推送消息
@@ -353,14 +353,14 @@ addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: 
 | **`eventName`**    | <code>'notificationReceived'</code>                                                                        |
 | **`listenerFunc`** | <code>(notificationData: <a href="#receivenotificationdata">ReceiveNotificationData</a>) =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 ---
 
 ### addListener('notificationOpened', ...)
 
 ```typescript
-addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle>
 ```
 
 监听消息栏通知被点击
@@ -370,7 +370,7 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 | **`eventName`**    | <code>'notificationOpened'</code>                                                                          |
 | **`listenerFunc`** | <code>(notificationData: <a href="#receivenotificationdata">ReceiveNotificationData</a>) =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 ---
 
