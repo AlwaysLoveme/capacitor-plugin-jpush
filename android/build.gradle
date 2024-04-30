@@ -1,11 +1,3 @@
-ext {
-    applicationId = rootProject.hasProperty("android") ? rootProject.android.defaultConfig.applicationId : "defaultApplicationId"
-    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
-    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
-    androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
-    androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.5.1'
-}
-
 buildscript {
     repositories {
         google()
@@ -14,7 +6,8 @@ buildscript {
         maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.1'
+        classpath 'com.android.tools.build:gradle:8.2.2'
+
         // hms，若不集成华为厂商通道，可直接跳过
         // 增加AGC插件配置，请您参见AGC插件依赖关系选择合适的AGC插件版本。
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
@@ -28,6 +21,16 @@ buildscript {
         }
     }
 }
+
+ext {
+    applicationId = rootProject.hasProperty("android") ? rootProject.android.defaultConfig.applicationId : "defaultApplicationId"
+    honorAppId = rootProject.hasProperty("android") ? rootProject.android.defaultConfig.manifestPlaceholders.honorAppId : ""
+    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
+    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
+    androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
+    androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.5.1'
+}
+
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.huawei.agconnect'
@@ -47,6 +50,11 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                HONOR_APPID: honorAppId
+        ]
     }
     buildTypes {
         release {
@@ -61,7 +69,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
+
 
 repositories {
     google()
@@ -81,6 +96,10 @@ dependencies {
 
     // 国内 jpush 版本
     implementation 'cn.jiguang.sdk:jpush:5.3.1'
+
+    // honor 厂商
+    implementation 'cn.jiguang.sdk.plugin:honor:5.3.1' //5.3.1 极光对应插件的版本号
+    implementation 'com.hihonor.mcs:push:7.0.61.303'
 
     // Google Play 版本 SDK, 仅适用于海外开发者
     // implementation 'cn.jiguang.sdk:jpush-google:5.3.1'
