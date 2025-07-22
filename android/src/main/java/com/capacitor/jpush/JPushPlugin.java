@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
-import android.text.TextUtils;
-import android.util.Log;
-
 import androidx.core.app.NotificationManagerCompat;
 
 import cn.jpush.android.api.JPushInterface;
@@ -25,17 +22,16 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 import com.getcapacitor.annotation.PermissionCallback;
 
+import cn.jpush.android.api.CustomMessage;
+import cn.jpush.android.api.NotificationMessage;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-
 
 @CapacitorPlugin(
         name = "JPush",
@@ -50,44 +46,45 @@ public class JPushPlugin extends Plugin {
     static final String LOCAL_NOTIFICATIONS = "permission";
     private static final String TAG = "JPushPlugin";
 
-    public static String notificationTitle;
-    public static String notificationContent;
-    public static String notificationExtras;
-
 
     private void jPushInit(PluginCall call) {
-        Context context = getContext();
-        String appKey = getConfig().getString("appKey", "");
-        String channel = getConfig().getString("channel", "");
-        boolean debugMode = getConfig().getBoolean("debugMode", true);
-        if (Objects.equals(appKey, "")) {
-            call.reject("请在 capacitor.config.ts(capacitor.config.json) 中配置 appKey");
-            return;
+        JSObject ret = new JSObject();
+
+        try {
+            Context context = getContext();
+            String appKey = getConfig().getString("appKey", "");
+            String channel = getConfig().getString("channel", "");
+            boolean debugMode = getConfig().getBoolean("debugMode", true);
+            if (Objects.equals(appKey, "")) {
+                ret.put("success", false);
+                ret.put("message", "请在 capacitor.config.ts(capacitor.config.json) 中配置 appKey");
+                call.reject("极光推送初始化失败", "0", ret);
+                return;
+            }
+            JPushInterface.setDebugMode(debugMode);
+            JPushInterface.setChannel(context, channel);
+            JLogger.d(TAG, "[极光推送初始化] " + appKey + "," + channel);
+
+            JPushConfig config = new JPushConfig();
+            config.setjAppKey(appKey);
+            JPushInterface.init(context, config);
+            JPushInterface.setNotificationCallBackEnable(context, true);
+
+            ret.put("success", false);
+            call.resolve(ret);
+        } catch (Exception e) {
+            JLogger.e(TAG, "[极光推送初始化异常] " + e);
+            ret.put("success", false);
+            ret.put("message", e.getMessage());
+            call.reject("极光推送初始化失败", "0", ret);
         }
-        JPushInterface.setDebugMode(debugMode);
-        JPushInterface.setChannel(context, channel);
-        JLogger.d(TAG, "极光推送初始化" + appKey + "," + channel);
 
-        JPushConfig config = new JPushConfig();
-        config.setjAppKey(appKey);
-        JPushInterface.init(context, config);
-        JPushInterface.setNotificationCallBackEnable(context, true);
-
-        call.resolve();
     }
 
     @Override
     public void load() {
         super.load();
         staticBridge = this.bridge;
-
-        if (notificationTitle != null && notificationContent != null) {
-            JPushPlugin.handleNotificationListener("notificationReceived", notificationTitle, notificationContent, notificationExtras);
-
-            notificationTitle = null;
-            notificationContent = null;
-            notificationExtras = null;
-        }
     }
 
     @PluginMethod
@@ -97,10 +94,15 @@ public class JPushPlugin extends Plugin {
 
     @PluginMethod
     public void getRegistrationID(PluginCall call) {
-        String value = JPushInterface.getRegistrationID(getContext());
-        JSObject ret = new JSObject();
-        ret.put("registrationId", value);
-        call.resolve(ret);
+        try {
+            String value = JPushInterface.getRegistrationID(getContext());
+            JSObject ret = new JSObject();
+            ret.put("registrationId", value);
+            call.resolve(ret);
+        } catch (Exception e) {
+            JLogger.e(TAG, "[获取RegistrationID异常] " + e);
+            call.reject("获取RegistrationID失败", "0");
+        }
     }
 
     @PluginMethod
@@ -112,15 +114,25 @@ public class JPushPlugin extends Plugin {
 
     @PluginMethod
     public void setAlias(PluginCall call) {
-        String alias = call.getString("alias");
-        JPushInterface.setAlias(getContext(), jPushTools.sequenceNumber(call), alias);
-        call.resolve();
+        try {
+            String alias = call.getString("alias");
+            JPushInterface.setAlias(getContext(), jPushTools.sequenceNumber(call), alias);
+            JSObject ret = new JSObject();
+            ret.put("success", true);
+            call.resolve(ret);
+        } catch (Exception e) {
+            JLogger.e(TAG, "[设置别名异常] " + e);
+            call.reject("设置别名失败", "0");
+        }
+
     }
 
     @PluginMethod
     public void deleteAlias(PluginCall call) {
         JPushInterface.deleteAlias(getContext(), jPushTools.sequenceNumber(call));
-        call.resolve();
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        call.resolve(ret);
     }
 
     @PluginMethod
@@ -149,14 +161,18 @@ public class JPushPlugin extends Plugin {
     @PluginMethod
     public void cleanTags(PluginCall call) {
         JPushInterface.cleanTags(getContext(), 0);
-        call.resolve();
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        call.resolve(ret);
     }
 
     @PluginMethod
     public void setBadgeNumber(PluginCall call) {
         Integer badge = call.getInt("badge", 0);
         JPushInterface.setBadgeNumber(getContext(), badge != null ? badge : 0);
-        call.resolve();
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        call.resolve(ret);
     }
 
     @PluginMethod
@@ -202,73 +218,6 @@ public class JPushPlugin extends Plugin {
         call.resolve();
     }
 
-    private static JSObject getMessageObject(String message, Map<String, Object> extras) {
-        JSObject data = new JSObject();
-        try {
-            data.put("content", message);
-            JSObject jExtras = new JSObject();
-            for (Entry<String, Object> entry : extras.entrySet()) {
-                if (entry.getKey().equals(JPushInterface.EXTRA_EXTRA)) {
-                    JSONObject jo;
-                    if (TextUtils.isEmpty((String) entry.getValue())) {
-                        jo = new JSONObject();
-                    } else {
-                        jo = new JSONObject((String) entry.getValue());
-                        String key;
-                        Iterator<String> keys = jo.keys();
-                        while (keys.hasNext()) {
-                            key = keys.next().toString();
-                            jExtras.put(key, jo.getString(key));
-                        }
-                    }
-                    jExtras.put(JPushInterface.EXTRA_EXTRA, jo);
-                } else {
-                    jExtras.put(entry.getKey(), entry.getValue());
-                }
-            }
-            if (jExtras.length() > 0) {
-                data.put("rawData", jExtras);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
-
-    private static JSObject getNotificationObject(String title, String alert, Map<String, Object> extras) {
-        JSObject data = new JSObject();
-        try {
-            data.put("title", title);
-            data.put("content", alert);
-            JSObject jExtras = new JSObject();
-            for (Entry<String, Object> entry : extras.entrySet()) {
-                if (entry.getKey().equals(JPushInterface.EXTRA_EXTRA)) {
-                    JSONObject jo;
-                    if (TextUtils.isEmpty((String) entry.getValue())) {
-                        jo = new JSONObject();
-                    } else {
-                        jo = new JSONObject((String) entry.getValue());
-                        String key;
-                        Iterator<String> keys = jo.keys();
-                        while (keys.hasNext()) {
-                            key = keys.next().toString();
-                            jExtras.put(key, jo.getString(key));
-                        }
-                    }
-                    jExtras.put(JPushInterface.EXTRA_EXTRA, jo);
-                } else {
-                    jExtras.put(entry.getKey(), entry.getValue());
-                }
-            }
-            if (jExtras.length() > 0) {
-                data.put("rawData", jExtras);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
-
 
     static void transmitReceiveRegistrationId(String rId) {
         JPushPlugin jPushInstance = JPushPlugin.getJPushInstance();
@@ -290,25 +239,67 @@ public class JPushPlugin extends Plugin {
         return null;
     }
 
-    public static void handleNotificationListener(String eventName, String title, String content, String extraInfo) {
+    public static void handleNotificationListener(String eventName, Object message) {
         try {
+            String title = "";
+            String content = "";
+            String extraInfo = "";
+
+            JLogger.e(TAG, "[handleNotificationListener] " + eventName + " " + message);
+
+            JSObject extraObj = new JSObject();
+            // 反射获取所有字段
+            for (java.lang.reflect.Field field : message.getClass().getFields()) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(message);
+                    extraObj.put(field.getName(), value);
+                } catch (Exception ignored) {}
+            }
+            // 兼容 private 字段
+            for (java.lang.reflect.Field field : message.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(message);
+                    extraObj.put(field.getName(), value);
+                } catch (Exception ignored) {}
+            }
+
+            if (message instanceof CustomMessage customMsg) {
+                title = customMsg.title;
+                content = customMsg.message;
+                extraInfo = customMsg.extra;
+            } else if (message instanceof NotificationMessage notifyMsg) {
+                title = notifyMsg.notificationTitle;
+                content = notifyMsg.notificationContent;
+                extraInfo = notifyMsg.notificationExtras;
+            }
+
+            // 合并原有 extraInfo
+            if (extraInfo != null && !extraInfo.isEmpty()) {
+                try {
+                    JSObject originExtra = new JSObject(extraInfo);
+                    for (Iterator<String> it = originExtra.keys(); it.hasNext(); ) {
+                        String key = it.next();
+                        extraObj.put(key, originExtra.get(key));
+                    }
+                } catch (Exception ignored) {}
+            }
+
             JSObject data = new JSObject();
             data.put("title", title);
             data.put("content", content);
             JSObject rowDataObj = new JSObject();
-            rowDataObj.put("extra", new JSObject(extraInfo));
+            rowDataObj.put("extra", extraObj);
             data.put("rawData", rowDataObj);
 
 
             JPushPlugin jPushInstance = JPushPlugin.getJPushInstance();
             if (jPushInstance != null) {
-                notificationTitle = title;
-                notificationContent = content;
-                notificationExtras = extraInfo;
                 jPushInstance.notifyListeners(eventName, data);
             }
         } catch (Exception e) {
-            JLogger.e("Error", "An error occurred" + e);
+            JLogger.e(TAG, "[获取推送通知结果出错] " + e);
         }
     }
 }

@@ -23,8 +23,6 @@ buildscript {
 }
 
 ext {
-    applicationId = rootProject.hasProperty("android") ? rootProject.android.defaultConfig.applicationId : "defaultApplicationId"
-    honorAppId = rootProject.hasProperty("android") ? rootProject.android.defaultConfig.manifestPlaceholders.honorAppId : ""
     junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
     androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
     androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
@@ -51,10 +49,6 @@ android {
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
-        manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                HONOR_APPID: honorAppId
-        ]
     }
     buildTypes {
         release {
@@ -95,19 +89,19 @@ dependencies {
     // -------------------------------- jpush start
 
     // 国内 jpush 版本
-    implementation 'cn.jiguang.sdk:jpush:5.3.1'
+    implementation 'cn.jiguang.sdk:jpush:5.8.0'
 
     // honor 厂商
-    implementation 'cn.jiguang.sdk.plugin:honor:5.3.1' //5.3.1 极光对应插件的版本号
-    implementation 'com.hihonor.mcs:push:7.0.61.303'
+    //    implementation 'cn.jiguang.sdk.plugin:honor:5.3.1' //5.3.1 极光对应插件的版本号
+    //    implementation 'com.hihonor.mcs:push:7.0.61.303'
 
     // Google Play 版本 SDK, 仅适用于海外开发者
     // implementation 'cn.jiguang.sdk:jpush-google:5.3.1'
 
     // 极光厂商插件版本与接入 JPush 版本保持一致，下同
     // 接入华为厂商
-    // implementation 'com.huawei.hms:push:6.9.0.300'
-    // implementation 'cn.jiguang.sdk.plugin:huawei:5.0.0'
+    //    implementation 'com.huawei.hms:push:6.9.0.300'
+    //    implementation 'cn.jiguang.sdk.plugin:huawei:5.0.0'
 
     // 接入 FCM 厂商
     // implementation 'com.google.firebase:firebase-messaging:23.0.5'
