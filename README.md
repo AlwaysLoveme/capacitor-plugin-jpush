@@ -175,8 +175,8 @@ const JPushMethods = async () => {
 - [`checkPermissions()`](#checkpermissions)
 - [`requestPermissions()`](#requestpermissions)
 - [`openNotificationSetting()`](#opennotificationsetting)
-- [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived)
-- [`addListener('notificationOpened', ...)`](#addlistenernotificationopened)
+- [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived-)
+- [`addListener('notificationOpened', ...)`](#addlistenernotificationopened-)
 - [Interfaces](#interfaces)
 - [Type Aliases](#type-aliases)
 
