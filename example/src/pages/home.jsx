@@ -5,7 +5,7 @@ import { Page, Navbar, NavTitle, Block, Button } from 'framework7-react';
 const HomePage = () => {
   const setAlias = () => {
     JPush.setAlias({
-      alias: '123456',
+      alias: 'alias',
     });
   };
 
@@ -27,7 +27,7 @@ const HomePage = () => {
 
     JPush.addListener('notificationReceived', (data) => {
       console.log('notificationReceived', data);
-      setJPushData(JSON.stringify(data, null, 4));
+      setJPushData(JSON.stringify(data, null, 2));
     });
   }, []);
   return (
@@ -51,7 +51,7 @@ const HomePage = () => {
 
       <Block>
         <h3>推送数据</h3>
-        <p style={{ whiteSpace: 'pre-line' }}>{jPushData}</p>
+        <code style={{ whiteSpace: 'pre-line', background: '#eee' }}>{jPushData}</code>
       </Block>
     </Page>
   );

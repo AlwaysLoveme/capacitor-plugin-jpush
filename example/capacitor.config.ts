@@ -3,7 +3,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ionic.demotest',
+  appId: 'jiguang.test.cn',
   appName: 'jpushTest',
   webDir: 'dist',
   plugins: {
@@ -15,13 +15,13 @@ const config: CapacitorConfig = {
     },
     JPush: {
       // your application appKey on JPush
-      appKey: '4dde5a4f2c47443953bcf027',
+      appKey: '3edf7a4d8f2ba371a6a9d1ac',
       channel: '',
     },
   },
   server: {
     cleartext: true,
-    // url: 'http://10.200.186.220:5173',
+    url: 'http://10.200.77.5:5174/',
   },
 };
 
