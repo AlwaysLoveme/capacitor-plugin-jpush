@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
   plugins: {
     SplashScreen: {
       launchShowDuration: 3000,
-      launchAutoHide: true,
+      launchAutoHide: false,
       splashFullScreen: true,
       splashImmersive: true,
     },
@@ -21,7 +21,7 @@ const config: CapacitorConfig = {
   },
   server: {
     cleartext: true,
-    // url: 'http://10.200.186.220:5173',
+    url: 'http://10.200.77.5:5174/',
   },
 };
 

@@ -26,9 +26,7 @@ const MyApp = () => {
 
   f7ready(() => {
     // Call F7 APIs here
-    console.log(111111);
     SplashScreen.hide();
-    SafeArea.setImmersiveNavigationBar();
     SafeArea.getSafeAreaInsets().then(({ insets }) => {
       for (const [key, value] of Object.entries(insets)) {
         document.documentElement.style.setProperty(`--f7-safe-area-${key}`, `${value}px`);
