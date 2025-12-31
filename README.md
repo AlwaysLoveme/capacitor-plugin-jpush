@@ -2,37 +2,35 @@
 
 <p align="left">
   <a href="https://img.shields.io/badge/support-IOS-516BEB?logo=ios&logoColor=white&style=plastic">
-    <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic">
+    <img src="https://img.shields.io/badge/support-IOS-516BEB?style=plastic" alt="">
   </a>
   <a href="https://img.shields.io/badge/support-Android-516BEB?logo=android&logoColor=white&style=plastic">
-    <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic">
+    <img src="https://img.shields.io/badge/support-Android-516BEB?style=plastic" alt="">
   </a>
   <a href="https://www.npmjs.com/package/capacitor-plugin-jpush">
-    <img src="https://img.shields.io/npm/v/capacitor-plugin-jpush/latest.svg">
+    <img src="https://img.shields.io/npm/v/capacitor-plugin-jpush/latest.svg" alt="">
   </a>
   <a href="https://www.npmjs.com/package/capacitor-plugin-jpush">
-    <img src="https://img.shields.io/npm/dm/capacitor-plugin-jpush.svg"/>
+    <img src="https://img.shields.io/npm/dm/capacitor-plugin-jpush.svg" alt="">
   </a>
 </p>
 
 简体中文 | [English](./README-EN.md)
 
-一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎原生开发的大神贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
+一款基于 `Capacitor 3.0+` 的极光推送插件，如果有使用上的问题，欢迎提 `issue`，我会尽力解决，也欢迎贡献你的代码。 如果这个插件帮助到了你，请不要吝啬你的 `star`，万分感谢！！
 
-> 重要更新：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
+- v0.x 版本支持 `Capacitor4` 及更早版本
+- v1.0+ 版本支持 `Capacitor5`
 
-> 1.0 之后的版本开始支持 `Capacitor5`，0.x 版本仅支持 `Capacitor4`及更早版本。
+> **重要更新** ：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
 
-> 关于产商通道：`Android` 目前暂未支持产商通道推送。
-
-> 关于版本问题：不知道为什么，`1.0.0 - 1.0.4` 的版本在 `2020` 年就已经有版本记录了，所以这几个版本都跳过了，这个仓库是 2023-04-23 创建的，不知道为啥 `2020` 年有版本记录，也许是之前有人创建过同名包后来又注销了。
-
-
+> 关于产商通道：`Android` 目前暂未支持产商通道推送, 有兴趣开发的兄弟可以提PR
 
 ## 安装
 
 ```bash
 npm install capacitor-plugin-jpush
+
 npx cap sync
 ```
 
@@ -71,13 +69,16 @@ export default config;
 ```
 
 ### IOS设置
-在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能（如未启用，会导致 `JPush` 无法注册 `deviceToken`）。
+
+目前 `IOS` 的极光推送版本是 5.0.0，在 iOS 上，您必须启用推送通知功能。 详见 [Setting Capabilities](https://capacitorjs.com/docs/v4/ios/configuration#setting-capabilities) 文档如何启用推送功能（如未启用，会导致 `JPush` 无法注册 `deviceToken`）。
 
 > 你本机的 Xcode 需要使用 Xcode 14 及以上版本，请注意升级！
 
-在打开了推送通知功能之后, 添加以下代码到你应用的 `AppDelegate.swift` 文件:
+在打开了推送通知功能之后, 添加以下代码到 `IOS` 应用的 `AppDelegate.swift` 文件:
 
 ```swift
+import Foundation
+
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
   NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: deviceToken)
 }
@@ -85,8 +86,10 @@ func application(_ application: UIApplication, didFailToRegisterForRemoteNotific
   NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
 }
 
-// add the following code to applicationDidBecomeActive function
-NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
+// 这个函数 capacitor 生成的项目中可能自带, 只需将里面的内容复制过去即可
+func applicationDidBecomeActive(_ application: UIApplication) {
+    NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
+}
 ```
 
 然后找到极光推送的依赖包文件, 也就是 `JPUSHService.h`，点击此文件，在编辑器右边窗口找到 `Target MemberShip`，将 `CapacitorPluginJPush` 勾选中，并将它的值设置为 `Public` 如下图所示（如果没有找到该依赖文件，请在你的前端项目先运行命令 `npx cap sync ios`，如果是 `Ionic` 项目，则是运行 `ionic cap sync ios`）:
@@ -97,21 +100,9 @@ NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActi
 
 Android 13 之后系统必须要有推送通知权限才可以收到推送消息，所以你可以通过 `checkPermissions()` 方法来检查你的应用是否开启了通知权限，如果没有，则可以通过 `requestPermissions()` 来启用通知权限，如果用户拒绝了，可以通过调用 `openNotificationSetting()` 方法来打开通知权限设置页面，
 
-在 Android 12 及更老的设备，系统默认就是启用了推送通知权限。
+在 Android 12 及更老的设备，系统默认启用推送通知权限。
 
-在你安卓应用下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 可以忽略此步骤:
-
-![android studio](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181607.png)
-
-将以下代码添加到你应用 `app` 文件夹下的 `build.gradle`:
-
-```bash
-manifestPlaceholders = [
-  JPUSH_PKGNAME: applicationId,
-]
-```
-
-![JPUSH_PKGNAME](https://files-1316618304.cos.ap-shanghai.myqcloud.com/20230506181843.png)
+在你安卓应用根目录下找到 `variables.gradle` 文件，将 `compileSdkVersion` 和 `targetSdkVersion` 值设置为 `33` ，如果已经是 `33` 以上 可以忽略此步骤.
 
 ## 代码示例
 
@@ -122,16 +113,13 @@ import { JPush } from 'capacitor-plugin-jpush';
 const JPushSetup = async () => {
   if (Capacitor.isNativePlatform()) {
     // 推送事件监听
-    const receivedEvent = await JPush.addListener(
-      'notificationReceived',
-      data => {
-        console.log(data);
-      },
-    );
+    const receivedEvent = await JPush.addListener('notificationReceived', (data) => {
+      console.log(data);
+    });
     // 若不需要监听，移除即可
     receivedEvent.remove();
 
-    JPush.addListener('notificationOpened', data => {
+    JPush.addListener('notificationOpened', (data) => {
       console.log(data);
     });
 
@@ -140,9 +128,9 @@ const JPushSetup = async () => {
       console.log(permission);
       if (permission !== 'granted') {
         // 申请通知权限
-        JPush.requestPermissions().then(res => {
+        JPush.requestPermissions().then(async (res) => {
           console.log(res.permission);
-          if(res.permission === "granted") {
+          if (res.permission === 'granted') {
             // 初始化极光推送
             await JPush.startJPush();
           }
@@ -173,23 +161,23 @@ const JPushMethods = async () => {
 
 <docgen-index>
 
-* [`startJPush()`](#startjpush)
-* [`setDebugMode(...)`](#setdebugmode)
-* [`setAlias(...)`](#setalias)
-* [`deleteAlias(...)`](#deletealias)
-* [`addTags(...)`](#addtags)
-* [`deleteTags(...)`](#deletetags)
-* [`cleanTags()`](#cleantags)
-* [`setBadgeNumber(...)`](#setbadgenumber)
-* [`removeListeners()`](#removelisteners)
-* [`getRegistrationID()`](#getregistrationid)
-* [`checkPermissions()`](#checkpermissions)
-* [`requestPermissions()`](#requestpermissions)
-* [`openNotificationSetting()`](#opennotificationsetting)
-* [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived)
-* [`addListener('notificationOpened', ...)`](#addlistenernotificationopened)
-* [Interfaces](#interfaces)
-* [Type Aliases](#type-aliases)
+- [`startJPush()`](#startjpush)
+- [`setDebugMode(...)`](#setdebugmode)
+- [`setAlias(...)`](#setalias)
+- [`deleteAlias(...)`](#deletealias)
+- [`addTags(...)`](#addtags)
+- [`deleteTags(...)`](#deletetags)
+- [`cleanTags()`](#cleantags)
+- [`setBadgeNumber(...)`](#setbadgenumber)
+- [`removeListeners()`](#removelisteners)
+- [`getRegistrationID()`](#getregistrationid)
+- [`checkPermissions()`](#checkpermissions)
+- [`requestPermissions()`](#requestpermissions)
+- [`openNotificationSetting()`](#opennotificationsetting)
+- [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived)
+- [`addListener('notificationOpened', ...)`](#addlistenernotificationopened)
+- [Interfaces](#interfaces)
+- [Type Aliases](#type-aliases)
 
 </docgen-index>
 
@@ -204,8 +192,7 @@ startJPush() => Promise<void>
 
 启动极光推送服务，即使没有获取到通知权限，也会进行推送服务初始化
 
---------------------
-
+---
 
 ### setDebugMode(...)
 
@@ -219,8 +206,7 @@ setDebugMode(isDebug: boolean) => Promise<void>
 | ------------- | -------------------- |
 | **`isDebug`** | <code>boolean</code> |
 
---------------------
-
+---
 
 ### setAlias(...)
 
@@ -234,8 +220,7 @@ setAlias(options: AliasOptions) => Promise<void>
 | ------------- | ----------------------------------------------------- |
 | **`options`** | <code><a href="#aliasoptions">AliasOptions</a></code> |
 
---------------------
-
+---
 
 ### deleteAlias(...)
 
@@ -249,8 +234,7 @@ deleteAlias(options?: DeleteAlias | undefined) => Promise<void>
 | ------------- | --------------------------------------------------- |
 | **`options`** | <code><a href="#deletealias">DeleteAlias</a></code> |
 
---------------------
-
+---
 
 ### addTags(...)
 
@@ -264,8 +248,7 @@ addTags(options: SetTagsOptions) => Promise<void>
 | ------------- | --------------------------------------------------------- |
 | **`options`** | <code><a href="#settagsoptions">SetTagsOptions</a></code> |
 
---------------------
-
+---
 
 ### deleteTags(...)
 
@@ -279,8 +262,7 @@ deleteTags(options: SetTagsOptions) => Promise<void>
 | ------------- | --------------------------------------------------------- |
 | **`options`** | <code><a href="#settagsoptions">SetTagsOptions</a></code> |
 
---------------------
-
+---
 
 ### cleanTags()
 
@@ -288,8 +270,7 @@ deleteTags(options: SetTagsOptions) => Promise<void>
 cleanTags() => Promise<void>
 ```
 
---------------------
-
+---
 
 ### setBadgeNumber(...)
 
@@ -303,8 +284,7 @@ setBadgeNumber(options?: SetBadgeNumberOptions | undefined) => Promise<void>
 | ------------- | ----------------------------------------------------------------------- |
 | **`options`** | <code><a href="#setbadgenumberoptions">SetBadgeNumberOptions</a></code> |
 
---------------------
-
+---
 
 ### removeListeners()
 
@@ -312,8 +292,7 @@ setBadgeNumber(options?: SetBadgeNumberOptions | undefined) => Promise<void>
 removeListeners() => Promise<void>
 ```
 
---------------------
-
+---
 
 ### getRegistrationID()
 
@@ -325,8 +304,7 @@ getRegistrationID() => Promise<{ registrationId: string; }>
 
 **Returns:** <code>Promise&lt;{ registrationId: string; }&gt;</code>
 
---------------------
-
+---
 
 ### checkPermissions()
 
@@ -338,8 +316,7 @@ checkPermissions() => Promise<PermissionStatus>
 
 **Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
 
---------------------
-
+---
 
 ### requestPermissions()
 
@@ -351,8 +328,7 @@ requestPermissions() => Promise<PermissionStatus>
 
 **Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
 
---------------------
-
+---
 
 ### openNotificationSetting()
 
@@ -362,13 +338,12 @@ openNotificationSetting() => Promise<void>
 
 打开推送通知权限设置页面（目前仅安卓支持）
 
---------------------
-
+---
 
 ### addListener('notificationReceived', ...)
 
 ```typescript
-addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle>
 ```
 
 监听推送消息
@@ -378,15 +353,14 @@ addListener(eventName: 'notificationReceived', listenerFunc: (notificationData: 
 | **`eventName`**    | <code>'notificationReceived'</code>                                                                        |
 | **`listenerFunc`** | <code>(notificationData: <a href="#receivenotificationdata">ReceiveNotificationData</a>) =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
---------------------
-
+---
 
 ### addListener('notificationOpened', ...)
 
 ```typescript
-addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: ReceiveNotificationData) => void) => Promise<PluginListenerHandle>
 ```
 
 监听消息栏通知被点击
@@ -396,13 +370,11 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 | **`eventName`**    | <code>'notificationOpened'</code>                                                                          |
 | **`listenerFunc`** | <code>(notificationData: <a href="#receivenotificationdata">ReceiveNotificationData</a>) =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
---------------------
-
+---
 
 ### Interfaces
-
 
 #### AliasOptions
 
@@ -411,13 +383,11 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 | **`alias`**    | <code>string</code> |
 | **`sequence`** | <code>number</code> |
 
-
 #### DeleteAlias
 
 | Prop           | Type                |
 | -------------- | ------------------- |
 | **`sequence`** | <code>number</code> |
-
 
 #### SetTagsOptions
 
@@ -425,27 +395,23 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 | ---------- | --------------------- |
 | **`tags`** | <code>string[]</code> |
 
-
 #### SetBadgeNumberOptions
 
 | Prop        | Type                |
 | ----------- | ------------------- |
 | **`badge`** | <code>number</code> |
 
-
 #### PermissionStatus
 
-| Prop             | Type                                                        | Description                                                                  |
-| ---------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Prop             | Type                                                        | Description                                                                                               |
+| ---------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **`permission`** | <code><a href="#permissionstate">PermissionState</a></code> | prompt: 首次申请，询问。 prompt-with-rationale： 每次都询问。 granted： 已获取权限。 denied：权限已拒绝。 |
-
 
 #### PluginListenerHandle
 
 | Prop         | Type                                      |
 | ------------ | ----------------------------------------- |
 | **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
-
 
 #### ReceiveNotificationData
 
@@ -456,9 +422,7 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 | **`subTitle`** | <code>string</code>                                                                                                                   |
 | **`rawData`**  | <code>{ [x: string]: any; aps: { alert: { body: string; subTitle: string; title: string; }; badge: number; sound: string; }; }</code> |
 
-
 ### Type Aliases
-
 
 #### PermissionState
 

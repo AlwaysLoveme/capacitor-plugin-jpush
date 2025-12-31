@@ -4,9 +4,9 @@ import android.util.Log;
 
 public class JLogger {
 
-    public static final String TAG = "[Cordova-JPush]";
+    public static final String TAG = "[Capacitor-JPush]";
 
-    private static boolean isLoggerEnable = false;
+    private static boolean isLoggerEnable = true;
 
     public static void setLoggerEnable(boolean loggerEnable) {
         Log.d(TAG, "setLoggerEnable:" + loggerEnable);

@@ -9,7 +9,7 @@ end
 
 target 'Plugin' do
   capacitor_pods
-  pod 'JPush', '5.0.0'
+  pod 'JPush', '5.3.0'
 end
 
 target 'PluginTests' do

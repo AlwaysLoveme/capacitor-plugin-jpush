@@ -50,6 +50,8 @@ public class JPushPlugin: CAPPlugin {
             call.reject("请在 capacitor.config.ts(capacitor.config.json) 中配置 appKey")
             return
         }
+        
+        print("JPushPlugin init with appKey: \(appKey), channel: \(channel), isProduction: \(isProduction)")
 
         DispatchQueue.main.async {
             if #available(iOS 10, *) {
@@ -104,10 +106,14 @@ public class JPushPlugin: CAPPlugin {
     }
 
     @objc func didFinishLaunching(_ notification: NSNotification) {}
+    
     // APP 返回前台时清空角标
     @objc func didBecomeActive(_ notification: NSNotification) {
-        JPUSHService.setBadge(0)
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        let cleanBadge = getConfig().getBoolean("cleanBadgeWhenActive", false)
+        if cleanBadge {
+            JPUSHService.setBadge(0)
+            UIApplication.shared.applicationIconBadgeNumber = 0
+        }
     }
 
     @objc func startJPush(_ call: CAPPluginCall) {
@@ -218,17 +224,17 @@ public class JPushPlugin: CAPPlugin {
     }
 
     @objc func getRegistrationID(_ call: CAPPluginCall) {
-        let registrationID = JPUSHService.registrationID() ?? ""
+        let registrationID = JPUSHService.registrationID()
         call.resolve(["registrationId": registrationID])
     }
 }
 
 extension JPushPlugin: JPUSHRegisterDelegate {
-    public func jpushNotificationAuthorization(_ status: JPAuthorizationStatus, withInfo info: [AnyHashable: Any]!) {}
-    public func jpushNotificationCenter(_ center: UNUserNotificationCenter!, openSettingsFor notification: UNNotification!) {}
+    public func jpushNotificationAuthorization(_ status: JPAuthorizationStatus, withInfo info: [AnyHashable: Any]?) {}
+    public func jpushNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification) {}
     // 监听消息推送
     @available(iOS 10.0, *)
-    public func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {
+    public func jpushNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: ((Int) -> Void)) {
         let notificationContent = notification.request.content
         let userInfo = notificationContent.userInfo
         if let trigger = userInfo["trigger"] as? [String: AnyObject], trigger["type"]?.intValue == 1 {
@@ -238,7 +244,9 @@ extension JPushPlugin: JPUSHRegisterDelegate {
             "title": notificationContent.title,
             "subTitle": notificationContent.subtitle,
             "content": notificationContent.body,
-            "rawData": userInfo
+            "rawData": [
+                "extra": userInfo
+            ]
         ]
 
         self.notifyListeners("notificationReceived", data: data)
@@ -246,7 +254,7 @@ extension JPushPlugin: JPUSHRegisterDelegate {
     }
     // 监听通知栏消息点击
     @available(iOS 10.0, *)
-    public func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
+    public func jpushNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: (() -> Void)) {
         let notificationContent = response.notification.request.content
         let userInfo = notificationContent.userInfo
         if let trigger = userInfo["trigger"] as? [String: AnyObject], trigger["type"]?.intValue == 1 {
@@ -256,7 +264,9 @@ extension JPushPlugin: JPUSHRegisterDelegate {
             "title": notificationContent.title,
             "subTitle": notificationContent.subtitle,
             "content": notificationContent.body,
-            "rawData": userInfo
+            "rawData": [
+                "extra": userInfo
+            ]
         ]
         self.notifyListeners("notificationOpened", data: data)
         completionHandler()
@@ -265,19 +275,19 @@ extension JPushPlugin: JPUSHRegisterDelegate {
 
 // 地理围栏
 extension JPushPlugin: JPUSHGeofenceDelegate {
-    public func jpushGeofenceRegion(_ geofence: [AnyHashable: Any]!, error: Error!) {
+    public func jpushGeofenceRegion(_ geofence: [AnyHashable: Any]?, error: Error?) {
 
     }
 
-    public func jpushCallbackGeofenceReceived(_ geofenceList: [[AnyHashable: Any]]!) {
+    public func jpushCallbackGeofenceReceived(_ geofenceList: [[AnyHashable: Any]]?) {
 
     }
 
-    public func jpushGeofenceIdentifer(_ geofenceId: String!, didEnterRegion userInfo: [AnyHashable: Any]!, error: Error!) {
+    public func jpushGeofenceIdentifer(_ geofenceId: String, didEnterRegion userInfo: [AnyHashable: Any]?, error: Error?) {
 
     }
 
-    public func jpushGeofenceIdentifer(_ geofenceId: String!, didExitRegion userInfo: [AnyHashable: Any]!, error: Error!) {
+    public func jpushGeofenceIdentifer(_ geofenceId: String, didExitRegion userInfo: [AnyHashable: Any]?, error: Error?) {
 
     }
 }

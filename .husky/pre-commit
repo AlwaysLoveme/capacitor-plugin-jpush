@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# 运行 lint-staged
+lint-staged

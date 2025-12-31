@@ -15,9 +15,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "types": [
-      "@capacitor/cli"
-    ]
+    "types": ["@capacitor/cli"]
   },
-  "files": ["src/index.ts"]
+  "files": ["src/index.ts"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "example"]
 }

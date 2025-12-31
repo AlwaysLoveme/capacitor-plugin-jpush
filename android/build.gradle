@@ -1,13 +1,3 @@
-ext {
-    JPUSH_APPKEY = ""
-    JPUSH_CHANNEL = ""
-    applicationId =  project.parent?:project.android.defaultConfig.applicationId
-    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
-    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
-    androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
-    androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.5.1'
-}
-
 buildscript {
     repositories {
         google()
@@ -16,7 +6,8 @@ buildscript {
         maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.0'
+        classpath 'com.android.tools.build:gradle:8.2.2'
+
         // hms，若不集成华为厂商通道，可直接跳过
         // 增加AGC插件配置，请您参见AGC插件依赖关系选择合适的AGC插件版本。
         classpath 'com.huawei.agconnect:agcp:1.6.0.300'
@@ -31,15 +22,23 @@ buildscript {
     }
 }
 
+ext {
+    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
+    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
+    androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
+    androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.5.1'
+}
+
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.huawei.agconnect'
 
 android {
     namespace "com.capacitor.jpush"
-    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 33
+    compileSdk project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
     defaultConfig {
         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 22
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 33
+        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -50,11 +49,6 @@ android {
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
-        manifestPlaceholders = [
-            JPUSH_PKGNAME: "$applicationId",
-            JPUSH_APPKEY: "$JPUSH_APPKEY",
-            JPUSH_CHANNEL: "$JPUSH_CHANNEL"
-        ]
     }
     buildTypes {
         release {
@@ -69,7 +63,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
+
 
 repositories {
     google()
@@ -86,14 +87,21 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
 
     // -------------------------------- jpush start
-    
-    // 此处以JPush 5.0.0 版本为例，5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
-    implementation 'cn.jiguang.sdk:jpush:5.0.0'
+
+    // 国内 jpush 版本
+    implementation 'cn.jiguang.sdk:jpush:5.8.0'
+
+    // honor 厂商
+    //    implementation 'cn.jiguang.sdk.plugin:honor:5.3.1' //5.3.1 极光对应插件的版本号
+    //    implementation 'com.hihonor.mcs:push:7.0.61.303'
+
+    // Google Play 版本 SDK, 仅适用于海外开发者
+    // implementation 'cn.jiguang.sdk:jpush-google:5.3.1'
 
     // 极光厂商插件版本与接入 JPush 版本保持一致，下同
     // 接入华为厂商
-    // implementation 'com.huawei.hms:push:6.9.0.300'
-    // implementation 'cn.jiguang.sdk.plugin:huawei:5.0.0'
+    //    implementation 'com.huawei.hms:push:6.9.0.300'
+    //    implementation 'cn.jiguang.sdk.plugin:huawei:5.0.0'
 
     // 接入 FCM 厂商
     // implementation 'com.google.firebase:firebase-messaging:23.0.5'

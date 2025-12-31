@@ -1,0 +1,16 @@
+{
+  "cwd": "/Users/anonymous/Documents/github/capacitor-plugin-jpush/example",
+  "type": ["web"],
+  "name": "com.ionic.demotest",
+  "framework": "react",
+  "template": "blank",
+  "cssPreProcessor": "scss",
+  "bundler": "vite",
+  "theming": {
+    "customColor": true,
+    "color": "#00a76f",
+    "darkMode": false,
+    "iconFonts": true
+  },
+  "customBuild": false
+}
