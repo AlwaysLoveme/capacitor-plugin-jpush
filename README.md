@@ -21,6 +21,7 @@
 
 - v0.x 版本支持 `Capacitor4` 及更早版本
 - v1.0+ 版本支持 `Capacitor5`
+- v2.0+ 版本支持 `Capacitor6`
 
 > **重要更新** ：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
 
