@@ -1,4 +1,4 @@
-package com.ionic.demotest;
+package jiguang.test.cn;
 
 import com.getcapacitor.BridgeActivity;
 

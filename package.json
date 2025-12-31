@@ -1,6 +1,6 @@
 {
   "name": "capacitor-plugin-jpush",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "jpush plugin for capacitor3.0+",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
