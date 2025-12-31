@@ -8,13 +8,13 @@ export default {
       globals: {
         '@capacitor/core': 'capacitorExports',
       },
-      sourcemap: true,
+      sourcemap: false,
       inlineDynamicImports: true,
     },
     {
       file: 'dist/plugin.cjs.js',
       format: 'cjs',
-      sourcemap: true,
+      sourcemap: false,
       inlineDynamicImports: true,
     },
   ],
