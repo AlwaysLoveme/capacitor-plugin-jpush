@@ -1,0 +1,4 @@
+module JPushCoreLib {
+    header "Header.h"
+    export *
+}

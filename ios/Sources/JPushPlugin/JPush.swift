@@ -1,6 +1,7 @@
 import Capacitor
 import Foundation
 import UserNotifications
+import JPushCoreLib
 
 @objc public class JPush: NSObject {
     public func requestPermissions(with completion: ((Bool, Error?) -> Void)? = nil) {

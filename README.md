@@ -23,6 +23,7 @@
 - v1.0+ 版本支持 `Capacitor5`
 - v2.0+ 版本支持 `Capacitor6`
 - v3.0+ 版本支持 `Capacitor7`
+- v4.0+ 版本支持 `Capacitor8`
 
 > **重要更新** ：`0.x` 版本无需手动初始化极光推送服务，在 `capacitor.config.ts`中配置了 `appKey`，应用启动时便会自动注册极光服务。 `1.x` 版本开始需要手动调用 `startJPush` 方法注册极光服务。
 
@@ -178,6 +179,7 @@ const JPushMethods = async () => {
 - [`openNotificationSetting()`](#opennotificationsetting)
 - [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived-)
 - [`addListener('notificationOpened', ...)`](#addlistenernotificationopened-)
+- [`addListener(' silentNotification', ...)`](#addlistener-silentnotification-)
 - [Interfaces](#interfaces)
 - [Type Aliases](#type-aliases)
 
@@ -376,6 +378,23 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 
 ---
 
+### addListener(' silentNotification', ...)
+
+```typescript
+addListener(eventName: ' silentNotification', listenerFunc: (silentData: SilentData) => void) => Promise<PluginListenerHandle>
+```
+
+监听静默推送通知，仅 IOS 支持该事件
+
+| Param              | Type                                                                       |
+| ------------------ | -------------------------------------------------------------------------- |
+| **`eventName`**    | <code>' silentNotification'</code>                                         |
+| **`listenerFunc`** | <code>(silentData: <a href="#silentdata">SilentData</a>) =&gt; void</code> |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
+
+---
+
 ### Interfaces
 
 #### AliasOptions
@@ -423,6 +442,16 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 | **`content`**  | <code>string</code>                                                                                                                   |
 | **`subTitle`** | <code>string</code>                                                                                                                   |
 | **`rawData`**  | <code>{ [x: string]: any; aps: { alert: { body: string; subTitle: string; title: string; }; badge: number; sound: string; }; }</code> |
+
+#### SilentData
+
+| Prop              | Type                                          |
+| ----------------- | --------------------------------------------- |
+| **`_j_business`** | <code>string</code>                           |
+| **`_j_msgid`**    | <code>string</code>                           |
+| **`_j_data_`**    | <code>string</code>                           |
+| **`_j_uid`**      | <code>string</code>                           |
+| **`aps`**         | <code>{ "content-available": number; }</code> |
 
 ### Type Aliases
 

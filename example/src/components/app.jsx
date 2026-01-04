@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { SafeArea } from 'capacitor-plugin-safe-area';
+// import { SafeArea } from 'capacitor-plugin-safe-area';
 import { f7ready, App, View } from 'framework7-react';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { StatusBar, Style } from '@capacitor/status-bar';
+// import { StatusBar, Style } from '@capacitor/status-bar';
 
 import routes from '../js/routes';
 import store from '../js/store';
@@ -27,12 +27,12 @@ const MyApp = () => {
   f7ready(() => {
     // Call F7 APIs here
     SplashScreen.hide();
-    SafeArea.getSafeAreaInsets().then(({ insets }) => {
-      for (const [key, value] of Object.entries(insets)) {
-        document.documentElement.style.setProperty(`--f7-safe-area-${key}`, `${value}px`);
-      }
-      StatusBar.setStyle({ style: Style.Dark });
-    });
+    // SafeArea.getSafeAreaInsets().then(({ insets }) => {
+    //   for (const [key, value] of Object.entries(insets)) {
+    //     document.documentElement.style.setProperty(`--f7-safe-area-${key}`, `${value}px`);
+    //   }
+    //   StatusBar.setStyle({ style: Style.Dark });
+    // });
   });
 
   React.useEffect(() => {}, []);

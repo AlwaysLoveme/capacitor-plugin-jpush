@@ -2,11 +2,13 @@ import React from 'react';
 import { JPush } from 'capacitor-plugin-jpush';
 import { Page, Navbar, NavTitle, Block, Button } from 'framework7-react';
 
+JPush.addListener('silentNotification', (data) => {
+  console.log(data, '====');
+});
+
 const HomePage = () => {
   const setAlias = () => {
-    JPush.setAlias({
-      alias: 'alias',
-    });
+    JPush.setAlias({ alias: 'alias' });
   };
 
   const [jPushData, setJPushData] = React.useState('');
@@ -25,10 +27,14 @@ const HomePage = () => {
       });
     });
 
-    JPush.addListener('notificationReceived', (data) => {
+    const event = JPush.addListener('notificationReceived', (data) => {
       console.log('notificationReceived', data);
       setJPushData(JSON.stringify(data, null, 2));
-    });
+    }).then((event) => event);
+
+    return () => {
+      event.then((e) => e.remove());
+    };
   }, []);
   return (
     <Page name="home">

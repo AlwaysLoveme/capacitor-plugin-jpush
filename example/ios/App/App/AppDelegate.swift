@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .LaunchOptionsKey: Any]?
     ) -> Bool {
         // Override point for customization after application launch.
+       
         return true
     }
 
@@ -69,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             restorationHandler: restorationHandler
         )
     }
+
     func application(
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
@@ -87,4 +89,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             object: error
         )
     }
+    // iOS10以上静默推送会走该回调
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler:
+            @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        // 注意调用
+        
+        NotificationCenter.default.post(
+            name: Notification.Name(rawValue: "didReceiveRemoteNotification"),
+            object: userInfo
+        )
+        completionHandler(.newData)
+    }
+
 }

@@ -90,6 +90,15 @@ export interface JPushPlugin {
     eventName: 'notificationOpened',
     listenerFunc: (notificationData: ReceiveNotificationData) => void,
   ): Promise<PluginListenerHandle>;
+  /**
+   * 监听静默推送通知，仅 IOS 支持该事件
+   * @param eventName
+   * @param listenerFunc
+   */
+  addListener(
+    eventName: ' silentNotification',
+    listenerFunc: (silentData: SilentData) => void,
+  ): Promise<PluginListenerHandle>;
 }
 
 export interface AliasOptions {
@@ -129,6 +138,17 @@ export interface ReceiveNotificationData {
     };
     [x: string]: any;
   };
+}
+
+export interface SilentData {
+  _j_business: string;
+  _j_msgid: string;
+  _j_data_: string;
+  _j_uid: string;
+  aps: {
+    'content-available': number;
+  };
+  [x: string]: any;
 }
 
 export interface PermissionStatus {
