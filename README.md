@@ -197,7 +197,7 @@ const JPushMethods = async () => {
 - [`openNotificationSetting()`](#opennotificationsetting)
 - [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived-)
 - [`addListener('notificationOpened', ...)`](#addlistenernotificationopened-)
-- [`addListener(' silentNotification', ...)`](#addlistener-silentnotification-)
+- [`addListener('silentNotification', ...)`](#addlistenersilentnotification-)
 - [Interfaces](#interfaces)
 - [Type Aliases](#type-aliases)
 
@@ -396,17 +396,17 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 
 ---
 
-### addListener(' silentNotification', ...)
+### addListener('silentNotification', ...)
 
 ```typescript
-addListener(eventName: ' silentNotification', listenerFunc: (silentData: SilentData) => void) => Promise<PluginListenerHandle>
+addListener(eventName: 'silentNotification', listenerFunc: (silentData: SilentData) => void) => Promise<PluginListenerHandle>
 ```
 
 监听静默推送通知，仅 IOS 支持该事件
 
 | Param              | Type                                                                       |
 | ------------------ | -------------------------------------------------------------------------- |
-| **`eventName`**    | <code>' silentNotification'</code>                                         |
+| **`eventName`**    | <code>'silentNotification'</code>                                          |
 | **`listenerFunc`** | <code>(silentData: <a href="#silentdata">SilentData</a>) =&gt; void</code> |
 
 **Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>

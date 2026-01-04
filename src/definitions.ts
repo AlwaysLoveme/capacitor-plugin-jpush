@@ -96,7 +96,7 @@ export interface JPushPlugin {
    * @param listenerFunc
    */
   addListener(
-    eventName: ' silentNotification',
+    eventName: 'silentNotification',
     listenerFunc: (silentData: SilentData) => void,
   ): Promise<PluginListenerHandle>;
 }
