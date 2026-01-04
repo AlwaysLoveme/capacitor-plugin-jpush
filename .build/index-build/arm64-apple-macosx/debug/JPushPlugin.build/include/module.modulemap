@@ -1,3 +1,0 @@
-module JPushPlugin {
-    header "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/include/JPushPlugin-Swift.h"
-}
