@@ -29,6 +29,10 @@ const HomePage = () => {
       console.log('notificationReceived', data);
       setJPushData(JSON.stringify(data, null, 2));
     });
+    // 静默推送，仅 IOS 触发
+    JPush.addListener('silentNotification', (data) => {
+      console.log('silentNotification', data);
+    });
   }, []);
   return (
     <Page name="home">

@@ -1,0 +1,618 @@
+{
+  "builtTestProducts": [
+    {
+      "binaryPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.xctest/Contents/MacOS/CapacitorPluginJpushPackageTests",
+      "packagePath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush",
+      "productName": "CapacitorPluginJpushPackageTests"
+    }
+  ],
+  "copyCommands": {},
+  "explicitTargetDependencyImportCheckingMode": {
+    "none": {}
+  },
+  "generatedSourceTargetSet": [],
+  "pluginDescriptions": [],
+  "swiftCommands": {
+    "C.CapacitorPluginJpushPackageTests-arm64-apple-macosx26.0-debug.module": {
+      "executable": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/sources",
+      "importPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "inputs": [
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.derived/runner.swift"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/JPushPluginTests.swiftmodule"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/sources"
+        }
+      ],
+      "isLibrary": true,
+      "moduleName": "CapacitorPluginJpushPackageTests",
+      "moduleOutputPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/CapacitorPluginJpushPackageTests.swiftmodule",
+      "objects": [
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments": [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/include/CapacitorPluginJpushPackageTests-Swift.h",
+        "-Xfrontend",
+        "-experimental-lazy-typecheck",
+        "-Xfrontend",
+        "-experimental-skip-all-function-bodies",
+        "-Xfrontend",
+        "-experimental-allow-module-with-compiler-errors",
+        "-Xfrontend",
+        "-empty-abi-descriptor",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "capacitor_plugin_jpush"
+      ],
+      "outputFileMapPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/output-file-map.json",
+      "outputs": [
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/CapacitorPluginJpushPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing": true,
+      "sources": [
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.derived/runner.swift"
+      ],
+      "tempsPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build",
+      "wholeModuleOptimization": false
+    },
+    "C.JPushPlugin-arm64-apple-macosx26.0-debug.module": {
+      "executable": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/sources",
+      "importPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "inputs": [
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPush.swift"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPushPlugin.swift"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/sources"
+        }
+      ],
+      "isLibrary": true,
+      "moduleName": "JPushPlugin",
+      "moduleOutputPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/JPushPlugin.swiftmodule",
+      "objects": [
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPush.swift.o",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPushPlugin.swift.o"
+      ],
+      "otherArguments": [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-Onone",
+        "-enable-testing",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/include/JPushPlugin-Swift.h",
+        "-swift-version",
+        "5",
+        "-Xfrontend",
+        "-experimental-lazy-typecheck",
+        "-Xfrontend",
+        "-experimental-skip-all-function-bodies",
+        "-Xfrontend",
+        "-experimental-allow-module-with-compiler-errors",
+        "-Xfrontend",
+        "-empty-abi-descriptor",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "capacitor_plugin_jpush"
+      ],
+      "outputFileMapPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/output-file-map.json",
+      "outputs": [
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/JPushPlugin.swiftmodule"
+        }
+      ],
+      "prepareForIndexing": true,
+      "sources": [
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPush.swift",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPushPlugin.swift"
+      ],
+      "tempsPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build",
+      "wholeModuleOptimization": false
+    },
+    "C.JPushPluginTests-arm64-apple-macosx26.0-debug.module": {
+      "executable": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build/sources",
+      "importPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "inputs": [
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Tests/JPushPluginTests/JPushPluginTests.swift"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/JPushPlugin.swiftmodule"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build/sources"
+        }
+      ],
+      "isLibrary": true,
+      "moduleName": "JPushPluginTests",
+      "moduleOutputPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/JPushPluginTests.swiftmodule",
+      "objects": [
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build/JPushPluginTests.swift.o"
+      ],
+      "otherArguments": [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-Xfrontend",
+        "-experimental-lazy-typecheck",
+        "-Xfrontend",
+        "-experimental-skip-all-function-bodies",
+        "-Xfrontend",
+        "-experimental-allow-module-with-compiler-errors",
+        "-Xfrontend",
+        "-empty-abi-descriptor",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "capacitor_plugin_jpush"
+      ],
+      "outputFileMapPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build/output-file-map.json",
+      "outputs": [
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules/JPushPluginTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing": true,
+      "sources": [
+        "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Tests/JPushPluginTests/JPushPluginTests.swift"
+      ],
+      "tempsPath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build",
+      "wholeModuleOptimization": false
+    }
+  },
+  "swiftFrontendCommands": {},
+  "swiftTargetScanArgs": {
+    "CapacitorPluginJpushPackageTests": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "CapacitorPluginJpushPackageTests",
+      "-package-name",
+      "capacitor_plugin_jpush",
+      "-c",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/include/CapacitorPluginJpushPackageTests-Swift.h",
+      "-Xfrontend",
+      "-experimental-lazy-typecheck",
+      "-Xfrontend",
+      "-experimental-skip-all-function-bodies",
+      "-Xfrontend",
+      "-experimental-allow-module-with-compiler-errors",
+      "-Xfrontend",
+      "-empty-abi-descriptor",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "capacitor_plugin_jpush",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "JPushPlugin": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "JPushPlugin",
+      "-package-name",
+      "capacitor_plugin_jpush",
+      "-c",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPush.swift",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPushPlugin.swift",
+      "-I",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-Onone",
+      "-enable-testing",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/include/JPushPlugin-Swift.h",
+      "-swift-version",
+      "5",
+      "-Xfrontend",
+      "-experimental-lazy-typecheck",
+      "-Xfrontend",
+      "-experimental-skip-all-function-bodies",
+      "-Xfrontend",
+      "-experimental-allow-module-with-compiler-errors",
+      "-Xfrontend",
+      "-empty-abi-descriptor",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "capacitor_plugin_jpush",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "JPushPluginTests": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "JPushPluginTests",
+      "-package-name",
+      "capacitor_plugin_jpush",
+      "-c",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Tests/JPushPluginTests/JPushPluginTests.swift",
+      "-I",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-Xfrontend",
+      "-experimental-lazy-typecheck",
+      "-Xfrontend",
+      "-experimental-skip-all-function-bodies",
+      "-Xfrontend",
+      "-experimental-allow-module-with-compiler-errors",
+      "-Xfrontend",
+      "-empty-abi-descriptor",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "capacitor_plugin_jpush",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap": {
+    "CapacitorPluginJpushPackageTests": ["JPushPluginTests", "JPushPlugin", "Cordova", "Capacitor"],
+    "JPushPlugin": ["Cordova", "Capacitor"],
+    "JPushPluginTests": ["JPushPlugin", "Cordova", "Capacitor"]
+  },
+  "testDiscoveryCommands": {},
+  "testEntryPointCommands": {},
+  "traitConfiguration": {
+    "default": {}
+  },
+  "writeCommands": {
+    "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/sources": {
+      "alwaysOutOfDate": false,
+      "inputs": [
+        {
+          "kind": "virtual",
+          "name": "<sources-file-list>"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/CapacitorPluginJpushPackageTests.build/sources"
+    },
+    "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/sources": {
+      "alwaysOutOfDate": false,
+      "inputs": [
+        {
+          "kind": "virtual",
+          "name": "<sources-file-list>"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPush.swift"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPushPlugin.swift"
+        }
+      ],
+      "outputFilePath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/sources"
+    },
+    "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build/sources": {
+      "alwaysOutOfDate": false,
+      "inputs": [
+        {
+          "kind": "virtual",
+          "name": "<sources-file-list>"
+        },
+        {
+          "kind": "file",
+          "name": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Tests/JPushPluginTests/JPushPluginTests.swift"
+        }
+      ],
+      "outputFilePath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPluginTests.build/sources"
+    },
+    "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt": {
+      "alwaysOutOfDate": true,
+      "inputs": [
+        {
+          "kind": "virtual",
+          "name": "<swift-get-version>"
+        },
+        {
+          "kind": "file",
+          "name": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

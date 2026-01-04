@@ -89,6 +89,13 @@ public class JPushPlugin: CAPPlugin, CAPBridgedPlugin {
             object: nil
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.didReceiveRemoteNotification(_:)),
+            name: Notification.Name(rawValue: "didReceiveRemoteNotification"),
+            object: nil
+        )
+
     }
 
     // 极光初始化
@@ -162,21 +169,21 @@ public class JPushPlugin: CAPPlugin, CAPBridgedPlugin {
                 { $0 + String(format: "%02X", $1) }
             )
             JPUSHService.registerDeviceToken(deviceToken)
-            notifyListeners(
+            self.notifyListeners(
                 "registration",
                 data: [
                     "value": deviceTokenString
                 ]
             )
         } else if let stringToken = notification.object as? String {
-            notifyListeners(
+            self.notifyListeners(
                 "registration",
                 data: [
                     "value": stringToken
                 ]
             )
         } else {
-            notifyListeners(
+            self.notifyListeners(
                 "registrationError",
                 data: [
                     "error": PushNotificationError.tokenParsingFailed
@@ -187,6 +194,28 @@ public class JPushPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func didFinishLaunching(_ notification: NSNotification) {}
+    // 静默推送走这里
+    @objc func didReceiveRemoteNotification(_ notification: NSNotification) {
+        guard let userInfo = notification.object as? [AnyHashable: Any] else {
+            print(
+                "didReceiveRemoteNotification: userInfo is missing or of wrong type"
+            )
+            return
+        }
+        print("iOS7及以上系统，收到静默通知:\(userInfo)")
+        // 仅将值为数字类型的转为字符串，其余保持原样
+        var processedUserInfo: [String: Any] = [:]
+        for (key, value) in userInfo {
+            let keyString = String(describing: key)
+            if let number = value as? NSNumber {
+                processedUserInfo[keyString] = number.stringValue
+            } else {
+                processedUserInfo[keyString] = value
+            }
+        }
+        self.notifyListeners("silentNotification", data: processedUserInfo)
+        JPUSHService.handleRemoteNotification(userInfo)
+    }
 
     // APP 返回前台时清空角标
     @objc func didBecomeActive(_ notification: NSNotification) {

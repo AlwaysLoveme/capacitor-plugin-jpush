@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/master.swiftdeps"
+  },
+  "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPush.swift": {
+    "dependencies": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPush.d",
+    "object": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPush.swift.o",
+    "swiftmodule": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPush~partial.swiftmodule",
+    "swift-dependencies": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPush.swiftdeps",
+    "diagnostics": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPush.dia"
+  },
+  "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/ios/Sources/JPushPlugin/JPushPlugin.swift": {
+    "dependencies": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPushPlugin.d",
+    "object": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPushPlugin.swift.o",
+    "swiftmodule": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPushPlugin~partial.swiftmodule",
+    "swift-dependencies": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPushPlugin.swiftdeps",
+    "diagnostics": "/Users/zhuxian/Documents/github/capacitor-plugin-jpush/.build/index-build/arm64-apple-macosx/debug/JPushPlugin.build/JPushPlugin.dia"
+  }
+}

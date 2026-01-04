@@ -31,10 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        NotificationCenter.default.post(
-            name: Notification.Name(rawValue: "didBecomeActiveNotification"),
-            object: nil
-        )
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "didBecomeActiveNotification"), object: nil)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -69,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             restorationHandler: restorationHandler
         )
     }
+
     func application(
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
@@ -87,4 +85,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             object: error
         )
     }
+    // iOS10以上静默推送会走该回调
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler:
+            @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        // 注意调用
+        NotificationCenter.default.post(
+            name: Notification.Name(rawValue: "didReceiveRemoteNotification"),
+            object: userInfo
+        )
+        completionHandler(.newData)
+    }
+
 }
