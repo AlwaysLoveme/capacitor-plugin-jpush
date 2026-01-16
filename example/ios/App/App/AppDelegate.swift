@@ -12,7 +12,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .LaunchOptionsKey: Any]?
     ) -> Bool {
         // Override point for customization after application launch.
-       
         return true
     }
 
@@ -97,7 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             @escaping (UIBackgroundFetchResult) -> Void
     ) {
         // 注意调用
-        
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "didReceiveRemoteNotification"),
             object: userInfo

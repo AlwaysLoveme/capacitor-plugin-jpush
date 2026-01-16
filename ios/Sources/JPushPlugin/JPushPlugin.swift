@@ -96,6 +96,13 @@ public class JPushPlugin: CAPPlugin, CAPBridgedPlugin {
             object: nil
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.didReceiveRemoteNotification(_:)),
+            name: Notification.Name(rawValue: "didReceiveRemoteNotification"),
+            object: nil
+        )
+
     }
 
     // 极光初始化
@@ -194,11 +201,12 @@ public class JPushPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func didFinishLaunching(_ notification: NSNotification) {}
-    
     // 静默推送走这里
     @objc func didReceiveRemoteNotification(_ notification: NSNotification) {
         guard let userInfo = notification.object as? [AnyHashable: Any] else {
-            print("didReceiveRemoteNotification: userInfo is missing or of wrong type")
+            print(
+                "didReceiveRemoteNotification: userInfo is missing or of wrong type"
+            )
             return
         }
         print("iOS7及以上系统，收到静默通知:\(userInfo)")

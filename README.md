@@ -88,6 +88,20 @@ func application(_ application: UIApplication, didRegisterForRemoteNotifications
 func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
   NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
 }
+// iOS10以上静默推送会走该回调
+func application(
+_ application: UIApplication,
+didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+fetchCompletionHandler completionHandler:
+@escaping (UIBackgroundFetchResult) -> Void
+) {
+    // 注意调用
+    NotificationCenter.default.post(
+        name: Notification.Name(rawValue: "didReceiveRemoteNotification"),
+        object: userInfo
+    )
+    completionHandler(.newData)
+}
 
 // 这个函数 capacitor 生成的项目中可能自带, 只需将里面的内容复制过去即可
 func applicationDidBecomeActive(_ application: UIApplication) {
@@ -124,6 +138,11 @@ const JPushSetup = async () => {
 
     JPush.addListener('notificationOpened', (data) => {
       console.log(data);
+    });
+
+    // 监听静默推送事件，仅 IOS 支持
+    JPush.addListener('silentNotification', (data) => {
+      console.log('silentNotification', data);
     });
 
     // 检测是否有通知权限
@@ -179,7 +198,7 @@ const JPushMethods = async () => {
 - [`openNotificationSetting()`](#opennotificationsetting)
 - [`addListener('notificationReceived', ...)`](#addlistenernotificationreceived-)
 - [`addListener('notificationOpened', ...)`](#addlistenernotificationopened-)
-- [`addListener(' silentNotification', ...)`](#addlistener-silentnotification-)
+- [`addListener('silentNotification', ...)`](#addlistenersilentnotification-)
 - [Interfaces](#interfaces)
 - [Type Aliases](#type-aliases)
 
@@ -378,17 +397,17 @@ addListener(eventName: 'notificationOpened', listenerFunc: (notificationData: Re
 
 ---
 
-### addListener(' silentNotification', ...)
+### addListener('silentNotification', ...)
 
 ```typescript
-addListener(eventName: ' silentNotification', listenerFunc: (silentData: SilentData) => void) => Promise<PluginListenerHandle>
+addListener(eventName: 'silentNotification', listenerFunc: (silentData: SilentData) => void) => Promise<PluginListenerHandle>
 ```
 
 监听静默推送通知，仅 IOS 支持该事件
 
 | Param              | Type                                                                       |
 | ------------------ | -------------------------------------------------------------------------- |
-| **`eventName`**    | <code>' silentNotification'</code>                                         |
+| **`eventName`**    | <code>'silentNotification'</code>                                          |
 | **`listenerFunc`** | <code>(silentData: <a href="#silentdata">SilentData</a>) =&gt; void</code> |
 
 **Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
@@ -445,13 +464,19 @@ addListener(eventName: ' silentNotification', listenerFunc: (silentData: SilentD
 
 #### SilentData
 
-| Prop              | Type                                          |
-| ----------------- | --------------------------------------------- |
-| **`_j_business`** | <code>string</code>                           |
-| **`_j_msgid`**    | <code>string</code>                           |
-| **`_j_data_`**    | <code>string</code>                           |
-| **`_j_uid`**      | <code>string</code>                           |
-| **`aps`**         | <code>{ "content-available": number; }</code> |
+| Prop              | Type                |
+| ----------------- | ------------------- |
+| **`_j_business`** | <code>string</code> |
+| **`_j_msgid`**    | <code>string</code> |
+| **`_j_data_`**    | <code>string</code> |
+| **`_j_uid`**      | <code>string</code> |
+
+<<<<<<< HEAD
+| **`aps`** | <code>{ "content-available": number; }</code> |
+=======
+| **`aps`** | <code>{ 'content-available': number; }</code> |
+
+> > > > > > > main
 
 ### Type Aliases
 

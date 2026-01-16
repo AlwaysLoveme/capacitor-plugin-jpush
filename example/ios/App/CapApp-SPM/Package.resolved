@@ -1,5 +1,4 @@
 {
-  "originHash" : "053d78a56ad57e4b4bb42225792d9acc45403ae4fa232c7d6efd6459c6949965",
   "pins" : [
     {
       "identity" : "capacitor-swift-pm",
@@ -11,5 +10,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
