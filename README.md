@@ -464,19 +464,13 @@ addListener(eventName: 'silentNotification', listenerFunc: (silentData: SilentDa
 
 #### SilentData
 
-| Prop              | Type                |
-| ----------------- | ------------------- |
-| **`_j_business`** | <code>string</code> |
-| **`_j_msgid`**    | <code>string</code> |
-| **`_j_data_`**    | <code>string</code> |
-| **`_j_uid`**      | <code>string</code> |
-
-<<<<<<< HEAD
-| **`aps`** | <code>{ "content-available": number; }</code> |
-=======
-| **`aps`** | <code>{ 'content-available': number; }</code> |
-
-> > > > > > > main
+| Prop              | Type                                          |
+| ----------------- | --------------------------------------------- |
+| **`_j_business`** | <code>string</code>                           |
+| **`_j_msgid`**    | <code>string</code>                           |
+| **`_j_data_`**    | <code>string</code>                           |
+| **`_j_uid`**      | <code>string</code>                           |
+| **`aps`**         | <code>{ 'content-available': number; }</code> |
 
 ### Type Aliases
 
