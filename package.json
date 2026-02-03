@@ -1,6 +1,6 @@
 {
   "name": "capacitor-plugin-jpush",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "jpush plugin for capacitor3.0+",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -11,7 +11,9 @@
     "android/src/main/",
     "android/build.gradle",
     "dist/",
-    "ios/Plugin/",
+    "ios/Sources",
+    "ios/Tests",
+    "Package.swift",
     "CapacitorPluginJpush.podspec"
   ],
   "author": "zhuxian",
